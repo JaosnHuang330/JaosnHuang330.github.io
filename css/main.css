@@ -1166,7 +1166,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #cba1e5;
+  background: #60e0ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2486,9 +2486,28 @@ body {
   color: #1f3b5d;
   background: transparent;
   font-weight: 800;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.08em;
+  font-size: 2.8rem;
+  line-height: 1.2;
 }
 /* 可选：让标题更贴合你那个浅蓝像素背景 */
 .brand .site-title:hover {
   color: #2f7dd3;
+}
+/* 顶部菜单字体尺寸 */
+.site-nav .menu .menu-item a,
+.site-nav .menu .menu-item .menu-item-link {
+  font-size: 1rem;
+  padding: 0 14px;
+  font-weight: 400;
+}
+/* 手机等小屏幕自适应，避免太挤（可选） */
+@media (max-width: 768px) {
+  .brand .site-title {
+    font-size: 2rem;
+  }
+  .site-nav .menu .menu-item a,
+  .site-nav .menu .menu-item .menu-item-link {
+    font-size: 0.9rem;
+  }
 }
