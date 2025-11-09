@@ -1101,6 +1101,98 @@ pre .javascript .function {
 .use-motion .menu-item {
   opacity: 0;
 }
+.book-mark-link {
+  border-bottom: none;
+  display: inline-block;
+  position: fixed;
+  right: 30px;
+  top: -10px;
+  transition: 0.3s;
+}
+@media (max-width: 991px) {
+  .book-mark-link {
+    display: none;
+  }
+}
+.book-mark-link::before {
+  color: #222;
+  content: '\f02e';
+  font-size: 32px;
+  line-height: 1;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+}
+.book-mark-link:hover,
+.book-mark-link-fixed {
+  top: -2px;
+}
+.github-corner :hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out;
+}
+.github-corner svg {
+  border: 0;
+  color: #fff;
+  fill: #222;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+}
+@media (max-width: 991px) {
+  .github-corner {
+    display: none;
+  }
+  .github-corner .github-corner:hover .octo-arm {
+    animation: none;
+  }
+  .github-corner .github-corner .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+  }
+}
+@-moz-keyframes octocat-wave {
+  0%, 100% {
+    transform: rotate(0);
+  }
+  20%, 60% {
+    transform: rotate(-25deg);
+  }
+  40%, 80% {
+    transform: rotate(10deg);
+  }
+}
+@-webkit-keyframes octocat-wave {
+  0%, 100% {
+    transform: rotate(0);
+  }
+  20%, 60% {
+    transform: rotate(-25deg);
+  }
+  40%, 80% {
+    transform: rotate(10deg);
+  }
+}
+@-o-keyframes octocat-wave {
+  0%, 100% {
+    transform: rotate(0);
+  }
+  20%, 60% {
+    transform: rotate(-25deg);
+  }
+  40%, 80% {
+    transform: rotate(10deg);
+  }
+}
+@keyframes octocat-wave {
+  0%, 100% {
+    transform: rotate(0);
+  }
+  20%, 60% {
+    transform: rotate(-25deg);
+  }
+  40%, 80% {
+    transform: rotate(10deg);
+  }
+}
 .sidebar {
   background: #222;
   bottom: 0;
@@ -1166,7 +1258,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffffa4;
+  background: #ff2245;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1508,6 +1600,16 @@ pre .javascript .function {
     left: 20px;
     opacity: 0.8;
   }
+}
+.reading-progress-bar {
+  background: #37c6c0;
+  display: block;
+  height: 3px;
+  left: 0;
+  position: fixed;
+  width: 0;
+  z-index: 1500;
+  bottom: 0;
 }
 .post-body {
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -2476,7 +2578,7 @@ body {
   background-attachment: fixed;
   background-position: 50% 50%;
 }
-/* 顶部站点标题样式 */
+/* 顶部站点标题 */
 .brand {
   background: transparent;
   box-shadow: none;
@@ -2490,18 +2592,16 @@ body {
   font-size: 2.8rem;
   line-height: 1.2;
 }
-/* 可选：让标题更贴合你那个浅蓝像素背景 */
 .brand .site-title:hover {
   color: #2f7dd3;
 }
-/* 顶部菜单字体尺寸 */
+/* 顶部菜单字体 */
 .site-nav .menu .menu-item a,
 .site-nav .menu .menu-item .menu-item-link {
-  font-size: 1rem;
-  padding: 0 14px;
+  font-size: 0.9rem;
+  padding: 0 12px;
   font-weight: 400;
 }
-/* 手机等小屏幕自适应，避免太挤（可选） */
 @media (max-width: 768px) {
   .brand .site-title {
     font-size: 2rem;
@@ -2510,4 +2610,61 @@ body {
   .site-nav .menu .menu-item .menu-item-link {
     font-size: 0.9rem;
   }
+}
+/* 首页卡片下方的分类 + 标签 */
+/* 首页卡片的标签：description 下方、Read more 上方左对齐 */
+.index-tags {
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+  text-align: left;
+}
+.index-tags .index-tag {
+  display: inline-block;
+  padding: 0.1rem 0.6rem;
+  margin: 0 0.35rem 0.15rem 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(0,0,0,0.06);
+  font-size: 0.75rem;
+  color: #46627a;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.index-tags .index-tag:hover {
+  background: #2f7dd3;
+  border-color: #2f7dd3;
+  color: #fff;
+}
+.home-hero {
+  max-width: 960px;
+  margin: 0 auto 2.5rem;
+  padding: 2.2rem 2.4rem;
+  background: rgba(255,255,255,0.96);
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.04);
+  backdrop-filter: blur(4px);
+}
+.home-hero-title {
+  margin: 0 0 0.6rem;
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #1f3b5d;
+  letter-spacing: 0.06em;
+}
+.home-hero-subtitle {
+  margin: 0 0 0.4rem;
+  font-size: 0.98rem;
+  color: #4b5b70;
+}
+.home-hero-list {
+  margin: 0.2rem 0 0.8rem 1.1rem;
+  padding: 0;
+  font-size: 0.95rem;
+  color: #4b5b70;
+  line-height: 1.6;
+}
+.home-hero-note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #7a8a9a;
 }
