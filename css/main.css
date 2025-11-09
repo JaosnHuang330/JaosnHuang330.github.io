@@ -1166,7 +1166,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff45fc;
+  background: #7579ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2475,4 +2475,20 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
+}
+/* 顶部站点标题样式 */
+.brand {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+.brand .site-title {
+  color: #1f3b5d;
+  background: transparent;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+/* 可选：让标题更贴合你那个浅蓝像素背景 */
+.brand .site-title:hover {
+  color: #2f7dd3;
 }
