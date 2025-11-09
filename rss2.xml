@@ -40,28 +40,5 @@
       
     </item>
     
-    <item>
-      <title>Welcome to Jason&#39;s CFD World</title>
-      <link>http://example.com/2025/11/08/cfd-world/</link>
-      <guid>http://example.com/2025/11/08/cfd-world/</guid>
-      <pubDate>Sat, 08 Nov 2025 05:22:48 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Welcome to &lt;strong&gt;Jason’s CFD World&lt;/strong&gt; 👋&lt;/p&gt;
-&lt;p&gt;This blog is my personal notebook as a first-year graduate student exploring:&lt;/p&gt;</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Welcome to <strong>Jason’s CFD World</strong> 👋</p><p>This blog is my personal notebook as a first-year graduate student exploring:</p><ul><li>Fluid mechanics</li><li>Computational fluid dynamics (CFD)</li><li>Deep learning for scientific computing</li><li>Reinforcement learning for control and optimization</li></ul><p>The goals here are simple:</p><ol><li><strong>Organize my own learning</strong> – short notes, derivations, code snippets, and experiment logs.</li><li><strong>Make things a bit clearer</strong> – write explanations that my past self would understand.</li><li><strong>Track progress</strong> – from basic concepts to more advanced topics over time.</li></ol><p>You can expect posts like:</p><ul><li>Summaries of fundamental fluid mechanics and numerical methods</li><li>Small CFD experiments and implementation notes</li><li>First attempts at using neural networks or RL with flow problems</li><li>Occasional mistakes and fixes (also part of the learning process)</li></ul><p>This is <strong>not</strong> a professional tutorial site or an official guide.<br>It’s a working notebook in public. If anything here helps you, or if you spot an error, feel free to reach out or compare with better references.</p><p>Thanks for visiting, and welcome to this small corner of CFD &amp; learning.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>http://example.com/2025/11/08/cfd-world/#disqus_thread</comments>
-      
-    </item>
-    
   </channel>
 </rss>
