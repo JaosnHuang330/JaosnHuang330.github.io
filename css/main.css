@@ -1258,7 +1258,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #c8ffff;
+  background: #ffff40;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2721,4 +2721,124 @@ html {
   font-size: 1.05rem;
   color: #6b7a8a;
   min-height: 1.4em;
+}
+/* ==== Sidebar Cards ==== */
+/* Sidebar 背景透明，卡片样式 */
+/* Sidebar 背景保持透明，只美化卡片 */
+.sidebar {
+  background: transparent;
+}
+.sidebar-inner {
+  background: transparent;
+  box-shadow: none;
+}
+/* 顶部头像、简介、统计文字加深 */
+.site-author-name {
+  color: #16324f;
+  font-weight: 700;
+}
+.site-subtitle {
+  color: #344563;
+}
+.site-state-item-count {
+  color: #16324f;
+}
+.site-state-item-name {
+  color: #586b86;
+}
+.links-of-author .links-of-author-item a {
+  color: #16324f;
+}
+.links-of-author .links-of-author-item a:hover {
+  color: #2f7dd3;
+}
+/* 通用卡片样式 */
+.sidebar-card {
+  background: rgba(255,255,255,0.98);
+  border-radius: 18px;
+  padding: 10px 14px 10px;
+  margin: 8px 10px;
+  box-shadow: 0 8px 22px rgba(15,40,80,0.1);
+  backdrop-filter: blur(8px);
+  font-size: 0.8rem;
+  color: #24344a;
+}
+.sidebar-card-title {
+  font-weight: 700;
+  font-size: 0.86rem;
+  color: #16324f;
+  margin-bottom: 4px;
+  text-align: center;
+}
+/* Recent notes */
+.sidebar-recent-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sidebar-recent-list li {
+  margin: 3px 0;
+}
+.sidebar-recent-list a {
+  color: #1f3b70;
+  text-decoration: none;
+  line-height: 1.4;
+}
+.sidebar-recent-list a:hover {
+  color: #2f7dd3;
+  text-decoration: underline;
+}
+/* Tag cloud */
+.sidebar-tagcloud a {
+  text-decoration: none;
+  padding: 1px 5px;
+  border-radius: 999px;
+  margin: 2px 3px;
+  display: inline-block;
+  font-size: 0.75rem;
+  color: #1f3b70;
+  background: rgba(240,245,255,0.96);
+  transition: all 0.15s ease;
+}
+.sidebar-tagcloud a:hover {
+  background: #2f7dd3;
+  color: #fff;
+}
+/* Music */
+.sidebar-music-desc {
+  margin-bottom: 4px;
+  font-size: 0.76rem;
+  color: #4b5a6a;
+  text-align: center;
+}
+.sidebar-music-player iframe {
+  border-radius: 12px;
+  border: none;
+}
+/* Runtime */
+.sidebar-runtime-text {
+  font-size: 0.8rem;
+  color: #3a4a60;
+  text-align: center;
+}
+/* 顶部个人介绍区域颜色加深 */
+.sidebar-inner .site-author-name {
+  color: #16324f !important;
+}
+.sidebar-inner .site-subtitle {
+  color: #344563 !important;
+}
+/* “Links” 标题 */
+.sidebar-inner .links-of-author-title,
+.sidebar-inner .links-of-blogroll-title {
+  color: #16324f !important;
+  font-weight: 600;
+}
+.sidebar-inner .links-of-author a,
+.sidebar-inner .links-of-blogroll a {
+  color: #1f3b70 !important;
+}
+.sidebar-inner .links-of-author a:hover,
+.sidebar-inner .links-of-blogroll a:hover {
+  color: #2f7dd3 !important;
 }
