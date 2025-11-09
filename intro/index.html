@@ -103,6 +103,7 @@
       <h1 class="site-title">Jason's CFD World</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
+      <p class="site-subtitle" itemprop="description">Exploring CFD and AI</p>
   </div>
 
   <div class="site-nav-right">
@@ -527,6 +528,60 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('typed-subtitle');
+  if (!el) return;
+
+  new Typed('#typed-subtitle', {
+    strings: [
+      "Welcome to Jason's CFD World 🚀",
+      "Tracking my journey in fluid mechanics",
+      "Exploring numerical methods",
+      "Learning deep AI for scientific computing",
+      "It's a public notebook, not a polished textbook"
+    ],
+    typeSpeed: 55,
+    backSpeed: 30,
+    backDelay: 1800,
+    loop: true,
+    smartBackspace: true,
+    showCursor: true,
+    cursorChar: '|'
+  });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var hero  = document.querySelector('.home-hero');
+  var posts = document.querySelector('.home-posts');
+  if (!hero || !posts) return;
+
+  function onScroll() {
+    var h = hero.offsetHeight || 1;
+    var y = window.scrollY || window.pageYOffset || 0;
+
+    // 0 ~ 1，表示滚动穿过 hero 的进度
+    var t = Math.max(0, Math.min(y / h, 1));
+
+    // 上面：从 1 慢慢减到 0，并轻微上移
+    var heroOpacity = 1 - t * 1.2;          // 稍微快一点淡出
+    heroOpacity = heroOpacity < 0 ? 0 : heroOpacity;
+    hero.style.opacity   = heroOpacity;
+    hero.style.transform = 'translateY(' + (-20 * t) + 'px)';
+
+    // 下面：从 0 慢慢到 1，同时从下往上滑进来
+    var postsOpacity = Math.max(0, Math.min(t * 1.4, 1));
+    posts.style.opacity   = postsOpacity;
+    posts.style.transform = 'translateY(' + (24 * (1 - postsOpacity)) + 'px)';
+  }
+
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+});
+</script>
 
 
 </body>
