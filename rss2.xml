@@ -28,9 +28,9 @@
       <category domain="http://example.com/categories/Reinforcement-Learning/">Reinforcement Learning</category>
       
       
-      <category domain="http://example.com/tags/Reinforcement-Learning/">Reinforcement Learning</category>
-      
       <category domain="http://example.com/tags/Monte-Carlo/">Monte Carlo</category>
+      
+      <category domain="http://example.com/tags/Reinforcement-Learning/">Reinforcement Learning</category>
       
       
       <comments>http://example.com/2025/11/09/RL-note3/#disqus_thread</comments>
