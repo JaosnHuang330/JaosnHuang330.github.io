@@ -9,14 +9,14 @@
     <atom:link href="http://example.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Explore the Beauty of Flows</description>
-    <pubDate>Sun, 09 Nov 2025 04:04:15 GMT</pubDate>
+    <pubDate>Sun, 09 Nov 2025 04:12:20 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
       <title>Reinforcement Learning Notes</title>
-      <link>http://example.com/2025/11/09/RL_note1/</link>
-      <guid>http://example.com/2025/11/09/RL_note1/</guid>
-      <pubDate>Sun, 09 Nov 2025 04:00:57 GMT</pubDate>
+      <link>http://example.com/2025/11/09/RL-note1/</link>
+      <guid>http://example.com/2025/11/09/RL-note1/</guid>
+      <pubDate>Sun, 09 Nov 2025 04:11:01 GMT</pubDate>
       
         
         
@@ -36,7 +36,7 @@
       <category domain="http://example.com/tags/Notes/">Notes</category>
       
       
-      <comments>http://example.com/2025/11/09/RL_note1/#disqus_thread</comments>
+      <comments>http://example.com/2025/11/09/RL-note1/#disqus_thread</comments>
       
     </item>
     
