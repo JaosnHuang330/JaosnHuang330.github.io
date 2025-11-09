@@ -1258,7 +1258,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #df91fc;
+  background: #ff6f6f;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2770,23 +2770,20 @@ html {
   margin-bottom: 4px;
   text-align: center;
 }
-/* Recent notes */
-.sidebar-recent-list {
+/* Now learning 卡片左对齐标题和内容 */
+.sidebar-focus .sidebar-card-title {
+  text-align: left;
+}
+.sidebar-focus-list {
   list-style: none;
-  margin: 0;
+  margin: 4px 0 0;
   padding: 0;
+  font-size: 0.78rem;
+  color: #4b5a6a;
+  text-align: left;
 }
-.sidebar-recent-list li {
-  margin: 3px 0;
-}
-.sidebar-recent-list a {
-  color: #1f3b70;
-  text-decoration: none;
-  line-height: 1.4;
-}
-.sidebar-recent-list a:hover {
-  color: #2f7dd3;
-  text-decoration: underline;
+.sidebar-focus-list li {
+  margin: 2px 0;
 }
 /* Tag cloud */
 .sidebar-tagcloud a {
