@@ -623,41 +623,71 @@
 
 <script>
 (function () {
-  // 初始化 APlayer（本地音乐）
-  function initAPlayer() {
-    var container = document.getElementById('aplayer-sidebar');
-    if (!container || !window.APlayer) return;
+  // DOM 就绪后再初始化
+  function ready(fn) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn);
+    } else {
+      fn();
+    }
+  }
 
-    new APlayer({
+  ready(function () {
+    var container = document.getElementById('aplayer-sidebar');
+    if (!container) {
+      console.error('APlayer container not found');
+      return;
+    }
+    if (!window.APlayer) {
+      console.error('APlayer lib not loaded');
+      return;
+    }
+
+    var player = new APlayer({
       container: container,
       fixed: false,
       mini: false,
-      autoplay: false,
+      autoplay: true,
       theme: '#2f7dd3',
       loop: 'all',
       order: 'list',
-      preload: 'auto',
+      preload: 'metadata',
       audio: [
         {
-          name: '你是我的ok绷',
+          name: '你是我的OK绷',
           artist: 'Jay Chou',
           url: '/music/ok-beng.mp3',
-          cover: '/images/music-cover.jpg' // 没有就换成你有的，或者先留空字符串
-        }
+          cover: '/images/ok-beng.jpg'
+        },
+        {
+          name: '晴天',
+          artist: 'Jay Chou',
+          url: '/music/qingtian.mp3',
+          cover: '/images/qingtian.jpg'
+          },
+        {
+          name: '花海',
+          artist: 'Jay Chou',
+          url: '/music/huahai.mp3',
+          cover: '/images/mojiezuo.jpg'
+        },
+        {
+          name: '龙卷风',
+          artist: 'Jay Chou',
+          url: '/music/longjuanfeng.mp3',
+          cover: '/images/longjuanfeng.jpg'
+        },
+        {
+          name: '断了的弦',
+          artist: 'Jay Chou',
+          url: '/music/duanledexian.mp3',
+          cover: '/images/duanledexian.jpg'
+        },
       ]
     });
-  }
 
-  if (window.APlayer) {
-    initAPlayer();
-  } else {
-    var timer = setInterval(function () {
-      if (window.APlayer) {
-        clearInterval(timer);
-        initAPlayer();
-      }
-    }, 200);
-  }
+    console.log('APlayer initialized:', player);
+  });
 
   // 站点运行天数（记得改成真实建站时间）
   var start = new Date('2025-11-08T00:00:00');
