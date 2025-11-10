@@ -1258,7 +1258,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #c3448e;
+  background: #4fffad;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1408,7 +1408,7 @@ pre .javascript .function {
   white-space: nowrap;
 }
 .post-toc .nav .nav-child {
-  display: none;
+  display: block;
 }
 .post-toc .nav .active > .nav-child {
   display: block;
@@ -2864,4 +2864,38 @@ html {
 .sidebar-inner .links-of-author a:hover,
 .sidebar-inner .links-of-blogroll a:hover {
   color: #2f7dd3 !important;
+}
+/* 文章目录文字颜色加深 */
+.post-toc {
+  color: #2b3a4a;
+}
+/* TOC 链接默认颜色 */
+.post-toc a {
+  color: #2b3a4a;
+  text-decoration: none;
+}
+/* 当前激活项颜色 */
+.post-toc .nav-item.active > a,
+.post-toc .nav-link.active {
+  color: #1a5ad7;
+  font-weight: 600;
+}
+/* 悬停效果 */
+.post-toc a:hover {
+  color: #1a5ad7;
+  text-decoration: underline;
+}
+/* TOC 顶部标题颜色加深 */
+.post-toc-wrap .post-toc-title,
+.post-toc-wrap .post-toc-overview {
+  color: #2b3a4a;
+  font-weight: 600;
+}
+.post-toc-wrap .post-toc-title:hover,
+.post-toc-wrap .post-toc-overview:hover {
+  color: #1a5ad7;
+}
+/* 菜单栏防止开头被小写 */
+.menu-item-resources .menu-item-label {
+  text-transform: none;
 }

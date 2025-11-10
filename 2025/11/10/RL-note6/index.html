@@ -22,17 +22,24 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Explore the Beauty of Flows">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jason&#39;s CFD World">
-<meta property="og:url" content="http://example.com/tags/Policy-Iteration/index.html">
+  <meta name="description" content="This note wiil introduce the transition from table-based methods to function-based method.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RL Note 6: Value Function Approximation">
+<meta property="og:url" content="http://example.com/2025/11/10/RL-note6/index.html">
 <meta property="og:site_name" content="Jason&#39;s CFD World">
-<meta property="og:description" content="Explore the Beauty of Flows">
+<meta property="og:description" content="This note wiil introduce the transition from table-based methods to function-based method.">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-11-09T19:50:04.000Z">
+<meta property="article:modified_time" content="2025-11-10T05:03:47.442Z">
 <meta property="article:author" content="Jason Huang">
+<meta property="article:tag" content="Deep Q-Learning">
+<meta property="article:tag" content="Q-Learning">
+<meta property="article:tag" content="Reinforcement Learning">
+<meta property="article:tag" content="SARSA">
+<meta property="article:tag" content="Value Function Approximation">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/tags/Policy-Iteration/">
+<link rel="canonical" href="http://example.com/2025/11/10/RL-note6/">
 
 
 <script id="page-configurations">
@@ -40,12 +47,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Tag: Policy Iteration | Jason's CFD World</title>
+  <title>RL Note 6: Value Function Approximation | Jason's CFD World</title>
   
 
 
@@ -196,57 +203,289 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/11/10/RL-note6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/jason_avatar.jpg">
+      <meta itemprop="name" content="Jason Huang">
+      <meta itemprop="description" content="Explore the Beauty of Flows">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jason's CFD World">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RL Note 6: Value Function Approximation
+        </h1>
+
+        <div class="post-meta">
+	  
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-11-10 04:50:04 / Modified: 14:03:47" itemprop="dateCreated datePublished" datetime="2025-11-10T04:50:04+09:00">2025-11-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reinforcement-Learning/" itemprop="url" rel="index"><span itemprop="name">Reinforcement Learning</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+<span class="index-cat-tag">
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">Policy Iteration
-          <small>Tag</small>
-        </h2>
-      </div>
+    <span class="post-meta-item">
+      <i class="fa fa-tag"></i>
+      
+        <a class="post-tag-link" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a>, 
+      
+        <a class="post-tag-link" href="/tags/SARSA/">SARSA</a>, 
+      
+        <a class="post-tag-link" href="/tags/Q-Learning/">Q-Learning</a>, 
+      
+        <a class="post-tag-link" href="/tags/Value-Function-Approximation/">Value Function Approximation</a>, 
+      
+        <a class="post-tag-link" href="/tags/Deep-Q-Learning/">Deep Q-Learning</a>
+      
+    </span>
+  
+</span>
+<br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.9k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+            <div class="post-description">This note wiil introduce the transition from table-based methods to function-based method.</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2025</span>
+        <h1 id="Value-Function-Approximation"><a href="#Value-Function-Approximation" class="headerlink" title="Value Function Approximation"></a>Value Function Approximation</h1><blockquote>
+<p>The state&#x2F;action values are represented as <strong>function</strong> for <strong>large scale state and action spaces</strong>. <strong>The NN can be applied from this chapter.</strong> There are two problems when considering function approximation: 1) which feature vector should be chosen 2) which parameter vector is the best for approximation.</p>
+</blockquote>
+<ol>
+<li>select an objective function for defining optimal policies. </li>
+<li>derive gradient of the objective function.</li>
+<li>apply gradient-based algorithm to solve the optimization problem.</li>
+</ol>
+<h2 id="Define-Objective-Function"><a href="#Define-Objective-Function" class="headerlink" title="Define Objective Function"></a>Define Objective Function</h2><p>$$<br>J(w) &#x3D; \mathbb{E}[(v_{\pi}(S)- \hat v(S, w))^2]<br>$$</p>
+<p>where $v_{\pi}(s)$ is the <em><strong>true state value</strong></em>, $\hat v(s, w)$ is the <em><strong>approximated state value</strong></em>. Our goal is to find an optimal $w$  that can best approximate the $v_\pi(s)$ for every $s$. </p>
+<ul>
+<li>What is the probability distribution of $S$</li>
+</ul>
+<p>First is the <strong>uniform distribution</strong>: (no consideration of long-term Markov process)</p>
+<p>$$<br>J(w) &#x3D; \frac{1}{n}\sum_{s\in \mathcal{S}}[(v_{\pi}(s)- \hat{v}(s, w))^2]<br>$$</p>
+<p>Second is the <strong>stationary distribution</strong>: (consider the long-term behavior of MDP)</p>
+<p>Let ${d_\pi(s)}_{s\in \mathcal S}$ is the stationary distribution of the Markov Process under policy $\pi$. </p>
+<p>$$<br>J(w) &#x3D; \sum_{s\in \mathcal{S}}d_\pi(s)[(v_{\pi}(s)- \hat{v}(s, w))^2]<br>$$</p>
+<p>To obtain $d_\pi (s)$ we need the transitional probability. </p>
+<h3 id="Minimize-the-Objective-Function"><a href="#Minimize-the-Objective-Function" class="headerlink" title="Minimize the Objective Function"></a>Minimize the Objective Function</h3><p>We can apply Gradient Descent Algorithm:</p>
+<p>$$<br>w_{k+1} &#x3D; w_k - \alpha_k \nabla_w J(w_k)<br>$$</p>
+<p>$$<br>\nabla_w J (w_k) &#x3D; -2 \mathbb{E}[(v_\pi(S) - \hat{v}(S, w_k))(\nabla_w \hat{v}(S, w_k))]<br>$$</p>
+<p>$$<br>w_{k+1} &#x3D; w_k + 2\alpha_k  \mathbb{E}[(v_\pi(S) - \hat{v}(S, w_k))(\nabla_w \hat{v}(S, w_k))]<br>$$</p>
+<p>There is a expectation in terms of $S$, we can use SGD instead:</p>
+<p>$$<br>w_{t+1} &#x3D; w_t + \alpha_t  (v_\pi(s_t) - \hat{v}(s_t, w_t))(\nabla_w \hat{v}(s_t, w_t))<br>$$</p>
+<p>But here $v_\pi(s)$ is unknown. </p>
+<ul>
+<li><p>We can use MC Method: $g_t$ can be used as an approximation of $v_\pi(s_t)$.</p>
+<p>  $$<br>  w_{t+1} &#x3D; w_t + \alpha_t(g_t- \hat{v}(s_t, w_t))\nabla_w\hat{v}(s_t, w_t)<br>  $$</p>
+</li>
+<li><p>Time Temporal Method: $v_\pi(s_t) &#x3D; r_{t+1} + \gamma \hat {v}(s_{t+1}, w_t)$</p>
+</li>
+</ul>
+<p>$$<br>w_{t+1} &#x3D; w_k + \alpha_k(r_{t+1} + \gamma \hat {v}(s_{t+1}, w_t) - \hat{v}(s_t, w_t))\nabla_w \hat{v}(s_t, w_t)<br>$$</p>
+<h3 id="Sarsa"><a href="#Sarsa" class="headerlink" title="Sarsa"></a>Sarsa</h3><p>$$<br>w_{t+1} &#x3D; w_k + \alpha_k(r_{t+1} + \gamma \hat {q}(s_{t+1}, a_{t+1}, w_t) - \hat{q}(s_t, a_t,  w_t))\nabla_w \hat{q}(s_t, a_t, w_t)<br>$$</p>
+<p><strong>Algorithm: SARSA with function approximation</strong></p>
+<p><strong>Initialization:</strong> Initial parameter $w_0$. Initial policy $\pi_0$. $\alpha_t &#x3D; \alpha &gt; 0$ for all $t$</p>
+<p><strong>Goal:</strong> Learn an optimal policy that can lead the agent to the target from an initial state. </p>
+<p>For each episode, do </p>
+<p>Generate $a_0$ at $s_0$  following $\pi_0 (s_0)$</p>
+<p>If $s_t$ is not the target state, do </p>
+<p>Collect the experience sample $(a_{t+1}, s_{t+1}, r_{t+1})$ given $(s_t, a_t)$: generate $r_{t+1}, s_{t+1}$</p>
+<p>by interacting with the environment: generate $\pi_{t}(s_{t+1})$</p>
+<p><strong>Update q-value</strong></p>
+<p>$$<br>w_{t+1} &#x3D; w_k + \alpha_k(r_{t+1} + \gamma \hat {q}(s_{t+1}, a_{t+1}, w_t) - \hat{q}(s_t, a_t,  w_t))\nabla_w \hat{q}(s_t, a_t, w_t)<br>$$</p>
+<p><strong>Update policy</strong></p>
+<p>$\epsilon$-greedy</p>
+<p>$s_t \leftarrow s_{t+1}$, $a_t \leftarrow a_{t+1}$</p>
+<h3 id="Q-Learning-with-function-approximation"><a href="#Q-Learning-with-function-approximation" class="headerlink" title="Q-Learning with function approximation"></a>Q-Learning with function approximation</h3><p>$$<br>w_{t+1} &#x3D; w_k + \alpha_k(r_{t+1} + \gamma \max_{a\in\mathcal{A(s_{t+1})}}\hat {q}(s_{t+1}, a_{t}, w_t) - \hat{q}(s_t, a_t,  w_t))\nabla_w \hat{q}(s_t, a_t, w_t)<br>$$</p>
+<h2 id="Deep-Q-Learning"><a href="#Deep-Q-Learning" class="headerlink" title="Deep Q-Learning"></a>Deep Q-Learning</h2><p>The DQN aims to minimize the following objective function:</p>
+<p>$$<br>J &#x3D;\mathbb{E}[(R + \gamma \max_{a\in \mathcal{A(S’)}}\hat{q}(S’, a, w)-\hat{q}(S, A, w))^2]<br>$$</p>
+<p>where $(S, A, R, S’)$ are random variable. The objective function can be viewed as squared Bellman optimality error.</p>
+<p>There are two networks for the DQN: <strong>target network  $\hat{q}(s, a, w_T)$</strong> which is used to obtain the <strong>target value $y_T&#x3D; r + \gamma \max_{a\in \mathcal{A}(s’)}\hat{q}(s’,a, w_T)$</strong> and <strong>main network $\hat{q}(s, a, w)$</strong> is used to minimized <strong>the target error.</strong> </p>
+<p>$$<br>J &#x3D; \mathbb{E}[(R+\gamma \max_{a\in\mathcal{A}(S’)}\hat{q}(S’, a, w_T)-\hat{q}(S, A, w))^2]<br>$$</p>
+<p>where, $w_T$ is the target network’s parameter. When $w_T$ is fixed, the gradient of $J$ is </p>
+<p>$$<br>\nabla_w J &#x3D; \mathbb{E}[(R + \gamma \max_{a\in \mathcal{A}(S’)}\hat{q}(S’, a, w_T)-\hat{q}(S, A, w))\nabla_w\hat{q}(S, A, w)],<br>$$</p>
+<p><strong>Algorithm Deep Q-learning</strong></p>
+<p><strong>Initialization</strong>: <strong>A main network</strong> and <strong>a target network</strong> with the same initial parameter. </p>
+<p><strong>Goal</strong>: Learn an optimal target network to approximate the optimal action values from the experience samples generated by a given behavior policy $\pi_b$. </p>
+<p>Store the experience samples generated by $\pi_b$ in a replay buffer $\mathcal{B} &#x3D; {s, a, r, s’}$</p>
+<p>For each iteration, do </p>
+<p>Uniformly draw a mini-batch of samples from $\mathcal{B}$</p>
+<p>For each sample $(s, a, r, s’)$, calculate the target value $y_T$. </p>
+<p>Update the main network to minimize the $\delta$ using the mini-batch of samples</p>
+<p>Set $w_T &#x3D; w$ every C iterations.  </p>
+<p>Minimize the TD errors, which is a metric to measure the convergence and the performance of a model.</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-11-09T14:00:24+09:00"
-              content="2025-11-09">
-          11-09
-        </time>
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------Thank you for your reading!-------------</div>
+    
+</div>
+
+
       </div>
+    
+  <div class="index-tags">
+    
+      <a class="index-tag" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a>
+    
+      <a class="index-tag" href="/tags/SARSA/">SARSA</a>
+    
+      <a class="index-tag" href="/tags/Q-Learning/">Q-Learning</a>
+    
+      <a class="index-tag" href="/tags/Value-Function-Approximation/">Value Function Approximation</a>
+    
+      <a class="index-tag" href="/tags/Deep-Q-Learning/">Deep Q-Learning</a>
+    
+  </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/11/09/RL-note2/" itemprop="url">
-            <span itemprop="name">RL Note 2: Value Iteration & Policy Iteration</span>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Jason Huang
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://example.com/2025/11/10/RL-note6/" title="RL Note 6: Value Function Approximation">http://example.com/2025/11/10/RL-note6/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>Welcome to my other publishing channels</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
           </a>
-      </div>
+        </div>
 
-    </header>
-  </article>
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
 
+            <span class="label">RSS</span>
+          </a>
+        </div>
     </div>
   </div>
-  
-  
-  
 
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Reinforcement-Learning/" rel="tag"># Reinforcement Learning</a>
+              <a href="/tags/SARSA/" rel="tag"># SARSA</a>
+              <a href="/tags/Q-Learning/" rel="tag"># Q-Learning</a>
+              <a href="/tags/Value-Function-Approximation/" rel="tag"># Value Function Approximation</a>
+              <a href="/tags/Deep-Q-Learning/" rel="tag"># Deep Q-Learning</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/11/10/RL-note5/" rel="prev" title="RL Note 5: Temporal Difference Algorithm">
+      <i class="fa fa-chevron-left"></i> RL Note 5: Temporal Difference Algorithm
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/11/10/RL-note7/" rel="next" title="RL Note 7: Policy Gradient Method">
+      RL Note 7: Policy Gradient Method <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+
+  
+  
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC82MDk5NC8zNzQ2NA=="></div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -293,6 +532,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Value-Function-Approximation"><span class="nav-number">1.</span> <span class="nav-text">Value Function Approximation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Define-Objective-Function"><span class="nav-number">1.1.</span> <span class="nav-text">Define Objective Function</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Minimize-the-Objective-Function"><span class="nav-number">1.1.1.</span> <span class="nav-text">Minimize the Objective Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sarsa"><span class="nav-number">1.1.2.</span> <span class="nav-text">Sarsa</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-Learning-with-function-approximation"><span class="nav-number">1.1.3.</span> <span class="nav-text">Q-Learning with function approximation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deep-Q-Learning"><span class="nav-number">1.2.</span> <span class="nav-text">Deep Q-Learning</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -622,9 +862,77 @@ $(document).ready(function() {
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   var posts = document.querySelectorAll('.post-block');
