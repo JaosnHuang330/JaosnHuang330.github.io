@@ -1258,7 +1258,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff78df;
+  background: #c3448e;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2775,15 +2775,15 @@ html {
   text-align: left;
 }
 .sidebar-focus-list {
-  list-style: none;
-  margin: 4px 0 0;
-  padding: 0;
-  font-size: 0.78rem;
-  color: #4b5a6a;
+  margin: 6px 0 2px;
+  padding-left: 16px;
+  list-style: disc;
   text-align: left;
 }
 .sidebar-focus-list li {
-  margin: 2px 0;
+  margin-bottom: 4px;
+  color: #4b5a6a;
+  font-size: 0.8rem;
 }
 /* Tag cloud */
 .sidebar-tagcloud a {
@@ -2811,6 +2811,32 @@ html {
 .sidebar-music-player iframe {
   border-radius: 12px;
   border: none;
+}
+/* APlayer 播放列表序号对齐 */
+.sidebar-music-player .aplayer .aplayer-list-index {
+  display: inline-block;
+  width: 24px;
+  text-align: right;
+  margin-right: 8px;
+}
+/* APlayer 播放列表布局优化：数字左列对齐 */
+.sidebar-music-player .aplayer-list li {
+  display: flex;
+  align-items: center;
+}
+.sidebar-music-player .aplayer-list-index {
+  flex: 0 0 24px;
+  display: inline-block;
+  text-align: right;
+  margin-right: 8px;
+  color: #7a8a9a !important;
+}
+.sidebar-music-player .aplayer-list-title {
+  flex: 1 1 auto;
+}
+.sidebar-music-player .aplayer-list-author {
+  flex: 0 0 auto;
+  margin-left: 8px;
 }
 /* Runtime */
 .sidebar-runtime-text {
