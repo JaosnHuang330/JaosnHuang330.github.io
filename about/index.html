@@ -371,21 +371,21 @@
 </div>
 
 
+<div class="sidebar-card sidebar-runtime">
+  <div class="sidebar-card-title">Site uptime</div>
+  <div class="sidebar-runtime-text">
+    <span id="site-runtime-days">Loading…</span>
+  </div>
+</div>
+
+
 <link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css">
 <script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script>
 
 <script>
 (function () {
-  // DOM 就绪后再初始化，避免局部注入顺序问题
-  function onReady(fn) {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', fn);
-    } else {
-      fn();
-    }
-  }
-
-  onReady(function () {
+  // 初始化 APlayer（本地音乐）
+  function initAPlayer() {
     var container = document.getElementById('aplayer-sidebar');
     if (!container || !window.APlayer) return;
 
@@ -400,14 +400,25 @@
       preload: 'auto',
       audio: [
         {
-          name: '你是我的OK绷',
+          name: '你是我的ok绷',
           artist: 'Jay Chou',
           url: '/music/ok-beng.mp3',
-          cover: '/images/music-cover.jpg'
+          cover: '/images/music-cover.jpg' // 没有就换成你有的，或者先留空字符串
         }
       ]
     });
-  });
+  }
+
+  if (window.APlayer) {
+    initAPlayer();
+  } else {
+    var timer = setInterval(function () {
+      if (window.APlayer) {
+        clearInterval(timer);
+        initAPlayer();
+      }
+    }, 200);
+  }
 
   // 站点运行天数（记得改成真实建站时间）
   var start = new Date('2025-11-08T00:00:00');
