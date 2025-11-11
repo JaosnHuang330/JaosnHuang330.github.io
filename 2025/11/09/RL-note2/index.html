@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://example.com/2025/11/09/RL-note2/figure3.png">
 <meta property="og:image" content="http://example.com/2025/11/09/RL-note2/figure4.png">
 <meta property="article:published_time" content="2025-11-09T05:00:24.000Z">
-<meta property="article:modified_time" content="2025-11-10T04:32:07.400Z">
+<meta property="article:modified_time" content="2025-11-11T14:07:47.448Z">
 <meta property="article:author" content="Jason Huang">
 <meta property="article:tag" content="Policy Iteration">
 <meta property="article:tag" content="Value Iteration">
@@ -133,12 +133,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">2</span></a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-resources">
@@ -241,7 +241,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-11-10 13:32:07" itemprop="dateModified" datetime="2025-11-10T13:32:07+09:00">2025-11-10</time>
+                <time title="Modified: 2025-11-11 23:07:47" itemprop="dateModified" datetime="2025-11-11T23:07:47+09:00">2025-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -280,7 +280,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>4.4k</span>
+              <span>4.8k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -303,31 +303,71 @@
         <h1 id="Value-Iteration-Policy-Iteration-Truncated-Iteration"><a href="#Value-Iteration-Policy-Iteration-Truncated-Iteration" class="headerlink" title="Value Iteration, Policy Iteration &amp; Truncated Iteration"></a>Value Iteration, Policy Iteration &amp; Truncated Iteration</h1><blockquote>
 <p>The idea of interaction between value and policy update (<em>generalized policy iteration</em>) widely exists in <strong>Reinforcement Learning.</strong> This is also <strong>Dynamic Programming</strong>. These algorithm is also <strong>Model Required</strong>.</p>
 </blockquote>
-<h2 id="Value-Iteration"><a href="#Value-Iteration" class="headerlink" title="Value Iteration"></a>Value Iteration</h2><p>Solving the Bellman Optimality Equation through using contraction mapping theorem </p>
+<h2 id="Value-Iteration"><a href="#Value-Iteration" class="headerlink" title="Value Iteration"></a>Value Iteration</h2><p>Solving the <strong>Bellman Optimality Equation</strong> through using contraction mapping theorem </p>
 <p>$$<br>v_{k+1} &#x3D; \max_{\pi \in \Pi}(r_\pi + \gamma P_\pi v_k), \quad k &#x3D; 0, 1, 2, \dots<br>$$</p>
-<p>This will guarantee the convergence of optimal state value and policy. </p>
+<p>This will guarantee the convergence of optimal state value and policy, according to the contract mapping theorem. </p>
 <p><strong>Step 1</strong>: Policy Update</p>
 <p>$$<br>\pi_{k+1} &#x3D; arg \max_\pi (r_\pi + \gamma P_\pi v_\pi)<br>$$</p>
 <p><strong>Step2</strong>: Value Update</p>
 <p>$$<br>v_{k+1}&#x3D;r_{\pi_{k+1}} + \gamma P_{\pi_{k+1}}v_k<br>$$</p>
-<p>Elementwise Form Analysis</p>
+<p><strong>Elementwise Form Analysis</strong></p>
 <p>First, find the best policy: </p>
 <p>$$<br>\pi_{k+1}(s)&#x3D; arg\max_\pi\sum_{a\in \mathcal{A}}\pi(a|s)[\sum_{r\in \mathcal{R}}p(r|s, a)r+ \gamma \sum_{s’\in \mathcal{S}}v_\pi(s’)p(s’|s, a)], \quad s\in \mathcal{S}<br>$$</p>
 <p>Second, update the state value:</p>
 <p>$$<br>v_{k+1} &#x3D; \sum_{a\in \mathcal{A}}\pi(a|s)[\sum_{r\in \mathcal{R}}p(r|s, a)r+ \gamma\sum_{s’\in \mathcal{S}}v_\pi(s’)p(s’|s, a)], \quad s\in \mathcal{S}<br>$$</p>
-<p>$a^* &#x3D; arg \max_a q_k(s, a)$, We have </p>
-<p>$$<br>\pi(a|s) &#x3D; \begin{cases} 1, \quad a &#x3D; a^<em>\0, \quad a \neq a^</em>\end{cases}<br>$$</p>
-<p>Thus, the optimal state value after updating is </p>
-<p>$$<br>v_{k+1}(s) &#x3D; \max_a q_k(s, a)<br>$$</p>
+<p>$a^* &#x3D; arg \max_a q_k(s, a)$, We have</p>
+ 
+$$
+\pi(a|s) = \begin{cases} 1, \quad a = a^*\\0, \quad a \neq a^*\end{cases}
+$$
+
+
+
+<p>Thus, the optimal state value after updating is<br>$$<br>v_{k+1}(s) &#x3D; \max_a q_k(s, a)<br>$$</p>
 <p>where the $v_k, v_{k+1}$ are only the intermediate value generated in the process of algorithm. </p>
-<p><strong>Algorithm</strong> </p>
-<p>For every state $s \in \mathcal{S}$ in state space</p>
-<p>For every action $a \in \mathcal{A}$ in action space</p>
-<p>First calculate the action value (q-value) by using </p>
-<p>$q_{k}(s, a) &#x3D; \sum_{r\in \mathcal{R}}p(r|s, a)r+ \gamma \sum_{s’\in \mathcal{S}}v_\pi(s’)p(s’|s, a)$</p>
-<p>choose the maximum action value: $a^*_k(s)&#x3D; arg\max_a q_k(s, a)$ </p>
-<p>update the policy through using $\pi(a|s)$ defined above </p>
-<p>then update the value through $v_{k+1}(s)&#x3D; \max_a q_k(s, a)$</p>
+<p><strong>Algorithm</strong></p>
+<ul>
+<li><p><strong>Initialization:</strong> The probability models $p(r\mid s,a)$ and $p(s’\mid s,a)$ for all $(s,a)$ are known.</p>
+</li>
+<li><p><strong>Goal:</strong> Search the optimal state values and an optimal policy that satisfy the Bellman optimality equation.</p>
+</li>
+<li><p><strong>Loop:</strong> While $\lVert v_k - v_{k+1} \rVert_\infty \ge \varepsilon$ (iteration $k$):</p>
+<ul>
+<li><p>For every state $s \in \mathcal{S}$:</p>
+<ul>
+<li><p>For every action $a \in \mathcal{A}$:</p>
+<ul>
+<li>Step 1:  
+        $$
+        q_k(s,a)
+        = \sum_{r\in\mathcal{R}} p(r\mid s,a)\, r
+        + \gamma \sum_{s'\in\mathcal{S}} p(s'\mid s,a)\, v_k(s')
+        $$
+    
+      </li>
+</ul>
+</li>
+<li><p>Step 2: Choose greedy action<br>$$<br>a_k^*(s) &#x3D; \arg\max_a q_k(s,a)<br>$$</p>
+</li>
+<li><p>Step 3: Policy update</p>
+
+      $$
+      \pi_{k+1}(a\mid s) =
+      \begin{cases}
+      1, & a = a_k^*(s),\\
+      0, & a \ne a_k^*(s)
+      \end{cases}
+      $$
+      
+</li>
+<li><p>Step 4: Value update</p>
+</li>
+</ul>
+<p>$$<br>v_{k+1}(s) &#x3D; \max_a q_k(s,a)<br>$$</p>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="Policy-Iteration"><a href="#Policy-Iteration" class="headerlink" title="Policy Iteration"></a>Policy Iteration</h2><blockquote>
 <p>Indirectly solving the Bellman Equation. The foundation of <em><strong>Monte Carlo (MC)</strong></em>.</p>
 </blockquote>
@@ -552,13 +592,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -601,7 +641,7 @@
   <div class="sidebar-card sidebar-tags">
     <div class="sidebar-card-title">Tags</div>
     <div class="sidebar-tagcloud">
-      <a href="/tags/Actor-Critic-Method/" style="font-size: 9px;">Actor-Critic Method</a> <a href="/tags/Deep-Q-Learning/" style="font-size: 9px;">Deep Q-Learning</a> <a href="/tags/Importance-Sampling/" style="font-size: 9px;">Importance Sampling</a> <a href="/tags/Monte-Carlo/" style="font-size: 9px;">Monte Carlo</a> <a href="/tags/Policy-Gradient-Method/" style="font-size: 9px;">Policy Gradient Method</a> <a href="/tags/Policy-Iteration/" style="font-size: 9px;">Policy Iteration</a> <a href="/tags/Q-Learning/" style="font-size: 12.5px;">Q-Learning</a> <a href="/tags/REINFORCE/" style="font-size: 9px;">REINFORCE</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 16px;">Reinforcement Learning</a> <a href="/tags/Reinforcement-Learning%EF%BC%8CSarsa/" style="font-size: 9px;">Reinforcement Learning，Sarsa</a> <a href="/tags/Robbins-Monro-Algorithm/" style="font-size: 9px;">Robbins-Monro Algorithm</a> <a href="/tags/SARSA/" style="font-size: 12.5px;">SARSA</a> <a href="/tags/Stochastic-Approximation/" style="font-size: 9px;">Stochastic Approximation</a> <a href="/tags/Stochastic-Gradient-Descent/" style="font-size: 9px;">Stochastic Gradient Descent</a> <a href="/tags/Temporal-Difference-Algorithm/" style="font-size: 9px;">Temporal Difference Algorithm</a> <a href="/tags/Value-Function-Approximation/" style="font-size: 9px;">Value Function Approximation</a> <a href="/tags/Value-Iteration/" style="font-size: 9px;">Value Iteration</a>
+      <a href="/tags/Actor-Critic-Method/" style="font-size: 9px;">Actor-Critic Method</a> <a href="/tags/Bellman-Equation/" style="font-size: 9px;">Bellman Equation</a> <a href="/tags/BioFluid-Mechanics/" style="font-size: 9px;">BioFluid Mechanics</a> <a href="/tags/Deep-Q-Learning/" style="font-size: 9px;">Deep Q-Learning</a> <a href="/tags/Fuild-Mechanics/" style="font-size: 9px;">Fuild Mechanics</a> <a href="/tags/Importance-Sampling/" style="font-size: 9px;">Importance Sampling</a> <a href="/tags/Monte-Carlo/" style="font-size: 9px;">Monte Carlo</a> <a href="/tags/Policy-Gradient-Method/" style="font-size: 9px;">Policy Gradient Method</a> <a href="/tags/Policy-Iteration/" style="font-size: 9px;">Policy Iteration</a> <a href="/tags/Q-Learning/" style="font-size: 12.5px;">Q-Learning</a> <a href="/tags/REINFORCE/" style="font-size: 9px;">REINFORCE</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 16px;">Reinforcement Learning</a> <a href="/tags/Reinforcement-Learning%EF%BC%8CSarsa/" style="font-size: 9px;">Reinforcement Learning，Sarsa</a> <a href="/tags/Robbins-Monro-Algorithm/" style="font-size: 9px;">Robbins-Monro Algorithm</a> <a href="/tags/SARSA/" style="font-size: 12.5px;">SARSA</a> <a href="/tags/Stochastic-Approximation/" style="font-size: 9px;">Stochastic Approximation</a> <a href="/tags/Stochastic-Gradient-Descent/" style="font-size: 9px;">Stochastic Gradient Descent</a> <a href="/tags/Temporal-Difference-Algorithm/" style="font-size: 9px;">Temporal Difference Algorithm</a> <a href="/tags/Value-Function-Approximation/" style="font-size: 9px;">Value Function Approximation</a> <a href="/tags/Value-Iteration/" style="font-size: 9px;">Value Iteration</a>
     </div>
   </div>
 
@@ -734,19 +774,19 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">47k</span>
+    <span title="Symbols count total">58k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">42 mins.</span>
+    <span title="Reading time total">53 mins.</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">Total words:  8.5k</span>
+  <span class="post-count">Total words:  10.7k</span>
 </div>
 
 

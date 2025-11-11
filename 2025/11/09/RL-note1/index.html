@@ -29,14 +29,22 @@
 <meta property="og:site_name" content="Jason&#39;s CFD World">
 <meta property="og:description" content="This note will explain baisc concepts of RL and Bellman Equation.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2025/11/09/RL-note1/figure1.jpg">
-<meta property="og:image" content="http://example.com/2025/11/09/RL-note1/figure2.jpg">
+<meta property="og:image" content="http://example.com/2025/11/09/RL-note1/figure1.png">
+<meta property="og:image" content="http://example.com/2025/11/09/RL-note1/figure2.png">
+<meta property="og:image" content="http://example.com/2025/11/09/RL-note1/figure3.png">
+<meta property="og:image" content="http://example.com/2025/11/09/RL-note1/figure5.png">
+<meta property="og:image" content="http://example.com/2025/11/09/RL-note1/figure6.png">
+<meta property="og:image" content="http://example.com/2025/11/09/RL-note1/figure7.png">
+<meta property="og:image" content="http://example.com/2025/11/09/RL-note1/figure8.png">
+<meta property="og:image" content="http://example.com/2025/11/09/RL-note1/figure8.png">
+<meta property="og:image" content="http://example.com/2025/11/09/RL-note1/figure9.png">
 <meta property="article:published_time" content="2025-11-09T04:11:01.000Z">
-<meta property="article:modified_time" content="2025-11-10T04:32:23.234Z">
+<meta property="article:modified_time" content="2025-11-11T13:31:26.642Z">
 <meta property="article:author" content="Jason Huang">
+<meta property="article:tag" content="Bellman Equation">
 <meta property="article:tag" content="Reinforcement Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2025/11/09/RL-note1/figure1.jpg">
+<meta name="twitter:image" content="http://example.com/2025/11/09/RL-note1/figure1.png">
 
 <link rel="canonical" href="http://example.com/2025/11/09/RL-note1/">
 
@@ -132,12 +140,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">1</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">2</span></a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-resources">
@@ -240,7 +248,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-11-10 13:32:23" itemprop="dateModified" datetime="2025-11-10T13:32:23+09:00">2025-11-10</time>
+                <time title="Modified: 2025-11-11 22:31:26" itemprop="dateModified" datetime="2025-11-11T22:31:26+09:00">2025-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -266,7 +274,9 @@
     <span class="post-meta-item">
       <i class="fa fa-tag"></i>
       
-        <a class="post-tag-link" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a>
+        <a class="post-tag-link" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a>, 
+      
+        <a class="post-tag-link" href="/tags/Bellman-Equation/">Bellman Equation</a>
       
     </span>
   
@@ -277,14 +287,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3.2k</span>
+              <span>14k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>3 mins.</span>
+              <span>12 mins.</span>
             </span>
             <div class="post-description">This note will explain baisc concepts of RL and Bellman Equation.</div>
 
@@ -297,9 +307,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="RL-Basic-Concepts"><a href="#RL-Basic-Concepts" class="headerlink" title="RL - Basic Concepts"></a>RL - Basic Concepts</h1><p>The ultimate goal of reinforcement learning is to obtain the optimal policies.  </p>
-<p>An agent has to interact with the environment to find a optimal policy through trails and errors.</p>
-<h1 id="Basic-Concepts"><a href="#Basic-Concepts" class="headerlink" title="Basic Concepts"></a>Basic Concepts</h1><ul>
+        <h1 id="Key-Terms"><a href="#Key-Terms" class="headerlink" title="Key Terms"></a>Key Terms</h1><ul>
 <li><strong>Agent</strong>: the object we are observing for finding the best optimal policies.</li>
 <li><strong>States</strong>: $s_i$ The <strong>state space</strong> is $\mathcal{S} &#x3D; {s_1, \cdots s_n}$</li>
 <li><strong>Actions</strong>: $a_i$ The <strong>action space</strong> is $\mathcal{A} &#x3D; {a_1,\cdots, a_m}$</li>
@@ -318,17 +326,216 @@
 <li><strong>Target Policy</strong>: it is constantly updated to converge to an optimal policy.</li>
 <li><strong>On-policy</strong>: When the <strong>behavior policy</strong> is equal to the <strong>target policy</strong>.</li>
 <li><strong>Off-policy</strong>: When the <strong>behavior policy</strong> is different from the <strong>target policy</strong>. off-policy learning can learn optimal policies based on the experience samples generated by other policies.</li>
-<li><strong>Experience replay:</strong> *The draw of samples is called <em><em>experience replay, which should follow a uniform distribution.</em> The main function of experience replay is to break the correlation of a sequence of action-state pairs. A</em>*fter we have collected some experience samples, we do not use these samples in the order they were collected. They are stored at the <strong>replay buffer</strong>. $(s, a, r, s’)$ is the experience sample and $\mathcal{B}&#x3D; {(s, a, r, s’)}$ is the replay buffer. every time updating the network we will draw a mini-batch from the <strong>replay buffer</strong>.</li>
+<li><strong>Experience replay:</strong> <em>The draw of samples is called <strong>experience replay</strong>, which should follow a uniform distribution.</em> The main function of experience replay is to break the correlation of a sequence of action-state pairs. <strong>After</strong> we have collected some experience samples, we do not use these samples in the order they were collected. They are stored at the <strong>replay buffer</strong>. $(s, a, r, s’)$ is the experience sample and $\mathcal{B}&#x3D; {(s, a, r, s’)}$ is the replay buffer. Every time updating the network we will draw a mini-batch from the <strong>replay buffer</strong>.</li>
+<li><strong>Policy Evaluation</strong>: <em><strong>Policy Evalution is the process calculating state value or action value based on given policy</strong> when the system dynamics is given or samplable.</em> Since the state value can be used to evaluate a policy, solving the state values from the Bellman Equation is <em><strong>policy evaluation</strong></em>. Basically, the task of Policy Evalution is to solve the Bellman Equation.</li>
 </ul>
-<p>Two ways to express <strong>State Transition</strong>:</p>
+<p>Two ways to express <strong>Deterministic</strong> <strong>State Transition</strong>:</p>
 <ol>
-<li><p>Table (<strong>only</strong> <strong>deterministic state transition</strong>)</p>
-<img src="/2025/11/09/RL-note1/figure1.jpg" class="" title="State transition table">
-</li>
-<li><p>Probability Expression</p>
-<img src="/2025/11/09/RL-note1/figure2.jpg" class="" title="State transition probability"></li>
+<li>Table (<strong>only</strong> <strong>deterministic state transition</strong>)</li>
 </ol>
-<h3 id="Policy-Evaluation"><a href="#Policy-Evaluation" class="headerlink" title="Policy Evaluation"></a>Policy Evaluation</h3><p>Since the state value can be used to evaluate a policy, solving the state values from the Bellman Equation is <em><strong>policy evaluation</strong></em>.</p>
+<p>​	<img src="/2025/11/09/RL-note1/figure1.png" class="" title="figure1">	</p>
+<ol>
+<li><p>Probability Expression</p>
+ <img src="/2025/11/09/RL-note1/figure2.png" class="" title="figure2"></li>
+</ol>
+<h1 id="Key-Concept-Key-Tool"><a href="#Key-Concept-Key-Tool" class="headerlink" title="Key Concept &amp; Key Tool"></a>Key Concept &amp; Key Tool</h1><h2 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h2><h3 id="State-Value"><a href="#State-Value" class="headerlink" title="State Value"></a>State Value</h3><blockquote>
+<p>It’s the <strong>expected return</strong> (<strong>average reward</strong> &#x2F; <strong>total reward</strong>) that an agent can obtain when <strong>starting from a state</strong> through <strong>following a given policy</strong>.  It can be taken as a metric to evaluate the goodness of a policy.</p>
+</blockquote>
+<p>The returns can be utilized to evaluate policies. However, it is inapplicable to stochastic systems, because starting from one state will lead to different returns. </p>
+<p>Therefore,   <strong>returns → state values</strong></p>
+<p>$$<br>S_t \xrightarrow{A_t} S_{t+1}, R_{t+1}<br>$$</p>
+<p>$S_t, A_t, S_{t+1}, R_{t+1}$ are all random variables.  $A_t \in \mathcal{A}(S_t)$  is the action taken by following Policy $\pi$. The immediate reward is $R_{t+1} \in \mathcal{R}(S_t,A_t)$. Therefore, the <strong>discounted return</strong> along the trajectory is </p>
+<p>$$<br>G_t &#x3D; R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3}+ \cdots,<br>$$</p>
+<p>where the $G_t$ is a <em><strong>random variable</strong></em>, which can be obtained by calculating <em><strong>expected value</strong></em>. Since the policy is given, $A_t$ is not a random variable here. </p>
+<p>$$<br>v_\pi(s) &#x3D; \mathbb{E}[G_t|S_t &#x3D; s]<br>$$</p>
+<p>This expected value $v_\pi (s)$  is called the <em><strong>state-value function</strong></em> or <em><strong>state value</strong></em> of $s$ .</p>
+<h3 id="Motivating-Example"><a href="#Motivating-Example" class="headerlink" title="Motivating Example:"></a>Motivating Example:</h3><p>​	<img src="/2025/11/09/RL-note1/figure3.png" class="" title="figure3"></p>
+<p>The return by following the first policy is $\text{return}_{1} &#x3D; 0 + \gamma1 + \gamma 1 + \cdots &#x3D; \frac{\gamma}{1 - \gamma}$;</p>
+<p>The return by following the second policy is $\text{return}_2 &#x3D; -1 + \frac{\gamma}{1- \gamma}$;</p>
+<p>The thrid return is $\text{return}_3 &#x3D; 0.5 \times \text{return}_1 +  0.5 \times \text{return}_2  &#x3D; -0.5  + \frac{\gamma}{1- \gamma}$</p>
+<h3 id="The-idea-to-calculate-returns"><a href="#The-idea-to-calculate-returns" class="headerlink" title="The idea to calculate returns:"></a>The idea to calculate returns:</h3><p>​	</p>
+<p>$$<br>v_1 &#x3D; r_1 + \gamma (r_2 + \gamma r_3 + \cdots) &#x3D; r_1 + \gamma v_2<br>$$</p>
+<p>$$<br>v_2 &#x3D; r_2 + \gamma (r_3 + \gamma r_4 + \cdots) &#x3D; r_2 + \gamma v_3<br>$$</p>
+<p>$$<br>v_3 &#x3D; r_3 + \gamma (r_4 + \gamma r_1 + \cdots) &#x3D; r_3 + \gamma v_4<br>$$</p>
+<p>$$<br>v_4 &#x3D; r_4 + \gamma (r_1 + \gamma r_2 + \cdots) &#x3D; r_4 + \gamma v_1<br>$$</p>
+<p>The idea is <em><strong>bootstrapping:</strong></em> using current estimates to update futrue estimates .  It is also an endless loop because the calculation of an unknown value relies on another unknown value. </p>
+<h3 id="Action-Value"><a href="#Action-Value" class="headerlink" title="Action Value"></a>Action Value</h3><blockquote>
+<p><strong>Action value</strong> indicates the value (<em><strong>expected return</strong></em>) of taking an action at a state. The action value is highly dependent on <em><strong>State Value</strong>.</em> It is also known as <em><strong>state-action value</strong></em>. Action value and state value can be converted to each other.</p>
+</blockquote>
+<p>The action value of a state-action pair can be defined as </p>
+<p>$$<br>\begin{aligned}<br>q_\pi(s,a)<br>&amp;&#x3D; \mathbb{E}\big[ G_t \mid S_t&#x3D;s, A_t&#x3D;a \big] \<br>&amp;&#x3D; \sum_{r \in \mathcal{R}} p(r \mid s,a), r</p>
+<ul>
+<li>\sum_{s’ \in \mathcal{S}} p(s’ \mid s,a), v_\pi(s’)<br>\end{aligned}<br>$$</li>
+</ul>
+<p><em><strong>This shows how to obtain action values through using state values.</strong></em><br>$$<br>\because \mathbb{E}[G_t|S_t &#x3D; s] &#x3D; \sum_{a\in \mathcal{A}}\pi(a|s)[\sum_{r\in \mathcal{R}}p(r|s, a)r+ \sum_{s’\in \mathcal{S}}v_\pi(s’)p(s’|s, a)]  \ &#x3D;  \sum_{a\in \mathcal{A}}\mathbb{E}[G_t|S_t&#x3D;s, A_t&#x3D;a]\pi(a|s)<br>$$</p>
+<p><strong>This shows how to obtain state values through using action values.</strong><br>$$<br>v_\pi(s) &#x3D; \sum_{a\in \mathcal{A}}\pi(a|s)q_\pi(s,a)<br>$$</p>
+<h3 id="Optimal-Policy"><a href="#Optimal-Policy" class="headerlink" title="Optimal Policy"></a>Optimal Policy</h3>
+
+The state values of optimal policy is the greatest compared to other policies. It can also be written as Matrix Form.
+
+
+$$
+v^*(s) = \max_{\pi} v^\pi(s),\quad
+v^{\pi^*}(s) \ge v^\pi(s),\ \forall s,\pi.
+$$
+
+
+
+<h3 id="Optimal-State-Value"><a href="#Optimal-State-Value" class="headerlink" title="Optimal State Value"></a>Optimal State Value</h3>
+
+We can obtain the optimal policies based on optimal state value that solved from Bellman Optimality Equation. A policy $\pi^*$  is optimal if $v_{\pi^*}(s)> v_\pi (s)$ for all $s \in \mathcal{S}$ and for any other policy $\pi$. The state values of $\pi^*$ are the optimal state values. Therefore, an optimal policy has the greatest state value for every state compared to any other policies. The Bellman optimality equation can be written as 
+$$
+v^*(s) = \max_a[r(s, a),\gamma \sum_{s'}P(s'|s, a)v^*(s')]
+$$
+
+
+
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><h3 id="Bellman-Equation"><a href="#Bellman-Equation" class="headerlink" title="Bellman Equation"></a>Bellman Equation</h3><blockquote>
+<p>Bellman Equation is basically a set of linear equations that describe the relationship between values of all the states. Bellman equation can be used to analyze the state values. It describes the relationship between values of all states.</p>
+</blockquote>
+<p>The below is the return from decision epoch $t$. </p>
+<p>$$<br>G_t &#x3D; R_{t+1} + \gamma (R_{t+2} + \gamma R_{t+3} + \cdots ) &#x3D; R_{t+1} + \gamma G_{t+1}<br>$$</p>
+<p>Therefore, the state value we determined before can be written as</p>
+<p>$$<br>v_{\pi}(s) &#x3D; \mathbb{E}[G_t|S_t &#x3D; s]&#x3D; \mathbb{E}[R_{t+1}+ \gamma G_{t+1}] &#x3D; \mathbb{E}[R_{t+1}|S_{t}&#x3D;s] + \gamma \mathbb{E}[G_{t+1}|S_t &#x3D; s]<br>$$</p>
+<p>$$<br>\mathbb{E}[R_{t+1}|S_t &#x3D; s] &#x3D; \sum_{a\in \mathcal{A}}\pi(a|s) \mathbb{E}[R_{t+1}|S_{t+1}&#x3D;s, A_t&#x3D;a] &#x3D; \sum_{a\in \mathcal{A}} \pi(a|s) \sum_{r\in \mathcal{R}}p(r|s, a)r<br>$$</p>
+<p>$$<br>\mathbb{E}[G_{t+1}|S_t &#x3D;s]&#x3D; \sum_{s’\in \mathcal{S}}\mathbb{E}[G_{t+1}|S_t &#x3D; s, S_{t+1}&#x3D;s’]p(s’|s)&#x3D; \sum_{s’\in \mathcal{S}}\mathbb{E}[G_{t+1}|  S_{t+1}&#x3D;s’]p(s’|s) &#x3D; \sum_{s’\in \mathcal{S}}v_\pi(s’)p(s’|s) &#x3D;\sum_{s’\in \mathcal{S}}v_\pi(s’)\sum_{a\in \mathcal{A}}\pi(a|s)p(s’|s, a)<br>$$</p>
+<p>The Bellman Equation will be</p>
+<p>$$<br>v_\pi(s) &#x3D; \mathbb{E}[G_t|S_t&#x3D;s] &#x3D; \mathbb{E}[R_{t+1}|S_t&#x3D;s] + \gamma \mathbb{E}[G_{t+1}|S_t&#x3D;s] &#x3D; \sum_{a\in \mathcal{A}} \pi(a|s) \sum_{r\in \mathcal{R}}p(r|s, a)r +\sum_{s’\in \mathcal{S}}v_\pi(s’)\sum_{a\in \mathcal{A}}\pi(a|s)p(s’|s, a) &#x3D; \sum_{a\in \mathcal{A}}\pi(a|s)[\sum_{r\in \mathcal{R}}p(r|s, a)r +\sum_{s’\in \mathcal{S}}v_\pi(s’)p(s’|s, a)]<br>$$</p>
+<p>the Bellman Equation is written as the sum of <em><strong>mean of immediate rewards</strong></em> and <em><strong>mean of future rewards</strong></em>. In the equation, the probability models, policies, rewards is known or given. </p>
+<p>​	<img src="/2025/11/09/RL-note1/figure5.png" class="" title="figure5"></p>
+<p>​	<img src="/2025/11/09/RL-note1/figure6.png" class="" title="figure6"></p>
+<p>​	<img src="/2025/11/09/RL-note1/figure7.png" class="" title="figure7"></p>
+<p>The above derivations and results are all elementwise form, there are also matrix-vector form. </p>
+<h3 id="Matrix-Vector-Form"><a href="#Matrix-Vector-Form" class="headerlink" title="Matrix-Vector Form"></a>Matrix-Vector Form</h3><p>$$<br>v_\pi &#x3D; r_\pi + \gamma P_\pi v_\pi<br>$$</p>
+<p>​	<img src="/2025/11/09/RL-note1/figure8.png" class="" title="figure8"></p>
+<p>The solution is $v_\pi &#x3D; (I-\gamma P_\pi)^{-1}r_\pi$, where $(I-\gamma P_\pi)$ is invertible, and each element of $(I-\gamma P_\pi)^{-1}$ is no less than the identity matrix. </p>
+<p>However, to obtain this solution, we have to calculate the inverse matrix. Instead, we usually apply iterative solution. </p>
+<p>$$<br>v_{k+1} &#x3D; r_{\pi} +\gamma P_\pi v_k, \quad k &#x3D; 0, 1, 2, \cdots<br>$$</p>
+<p>  where the $v_0$ is the initial guess of $v_\pi$.</p>
+<h3 id="Bellman-Equation-in-terms-of-Action-Value"><a href="#Bellman-Equation-in-terms-of-Action-Value" class="headerlink" title="Bellman Equation in terms of Action Value"></a>Bellman Equation in terms of Action Value</h3><p>$$<br> v_k \rightarrow v_\pi &#x3D; (I-\gamma P_\pi)^{-1}r_\pi, \quad \text{as}\quad  k  \rightarrow \infty<br>$$</p>
+<p>$$<br>q_\pi(s, a)&#x3D;\sum_{r\in \mathcal{R}}p(r|s, a)r+ \sum_{s’\in \mathcal{S}}v_\pi(s’)p(s’|s, a)<br>$$</p>
+<p>and </p>
+<p>$$<br>v_\pi (s) &#x3D; \sum_{a\in \mathcal{A}}\pi(a|s)q_\pi(s, a)<br>$$</p>
+<p>then, the Bellman Equation becomes. </p>
+<p>$$<br>q_\pi(s, a)&#x3D;\sum_{r\in \mathcal{R}}p(r|s, a)r+ \sum_{s’\in \mathcal{S}}p(s’|s, a)\sum_{a’\in \mathcal{A(s’)}}\pi(a’|s’)q_\pi(s’, a’)<br>$$</p>
+<h3 id="Bellman-Optimality-Equation"><a href="#Bellman-Optimality-Equation" class="headerlink" title="Bellman Optimality Equation"></a>Bellman Optimality Equation</h3><p>This equation is used to obtain the optimal policies, that is, we can use Bellman Optimality Equation to solve the <strong>optimal state values and policies</strong>. </p>
+<h3 id="How-to-improve-policies"><a href="#How-to-improve-policies" class="headerlink" title="How to improve policies?"></a>How to improve policies?</h3><p>Mathematics: The problem can be realized based on the calculation of <em><strong>state values</strong></em> and <em><strong>action values</strong></em>.  </p>
+<p>First, we can calculate the state values based on the given policy, like this: </p>
+<p>​	<img src="/2025/11/09/RL-note1/figure8.png" class="" title="figure8"></p>
+<p>Second, we can calculate the <strong>action values</strong> for each state. Here we only take state $s_1$ as an example. </p>
+<blockquote>
+<p>Here we have to emphasize the concept of action value again: it is the expected returns obtain at a given state by conducting a certain action.</p>
+</blockquote>
+<p>​	<img src="/2025/11/09/RL-note1/figure9.png" class="" title="figure9"></p>
+<p>Obviously, $a_3$ is the greatest action. </p>
+<p>For every $s \in \mathcal{S}$ , the <strong>elementwise expression</strong> of the BOE (a set of linear equation for updating state value) is </p>
+<p>$$<br>v(s) &#x3D; \max_{\pi(s) \in \Pi(s)} \sum_{a\in \mathcal{A}}\pi(a|s) (\sum_{r\in\mathcal{R}}p(r|s, a)r + \gamma \sum_{s’\in \mathcal{S}}p(s’|s, a)v(s’)) &#x3D; \max_{\pi(s) \in \Pi(s)}\sum_{a\in\mathcal{A}}\pi(a|s)q(s, a)<br>$$</p>
+<p>$\pi(s)$ is a policy for state $s$, $\Pi(s)$ is the set of all possible policies for $s$</p>
+<p>Although the BOE has two unknown variables $v(s)$ and $\pi(a|s)$, they can be solved one by one. </p>
+<p>Because of the structure of this Equation, we can be inspired by the below example!</p>
+<p>​	</p>
+<p>Here we have $\sum_a \pi(a|s) &#x3D; 1$, we have</p>
+<p>$$<br>\sum_{a\in \mathcal{A}}\pi(s|a)q(s, a) &#x3D; \sum_{a\in \mathcal{A}}\pi(s|a) \max_{a\in \mathcal{A}} q(s, a) &#x3D; \max_{a\in \mathcal{A}}q(s, a)<br>$$</p>
+<p>where equality is achieved when </p>
+<h3 id="Greedy-Optimal-Policy"><a href="#Greedy-Optimal-Policy" class="headerlink" title="Greedy Optimal Policy"></a>Greedy Optimal Policy</h3>
+
+this is an optimal policy for solving the BOE
+$$
+\pi(a|s) = \begin{cases} 1, \quad a = a^*\\0, \quad a \neq a^*\end{cases}
+$$
+
+The matrix-vector form of BOE is 
+
+$$
+v = \max_{\pi \in \Pi}(r_\pi + \gamma P_\pi v)
+$$
+
+it can be expressed as 
+
+$$
+f(v) = \max_{\pi \in \Pi}(r_\pi + \gamma P_\pi v)
+$$
+
+therefore, we only need to achieve $v = f(v)$, here we have to use Contraction Mapping Theorem (Fixed Pointed Theorem). 
+
+Consider a function $f(x)$, where $x \in \mathbb{R}^d$ and $f: \mathbb{R}^d \rightarrow \mathbb{R}^d$. The point $x^*$ is called fixed point if 
+
+$f(x^*) = x^*$. Therefore the function $f$ is the contraction mapping, if there exists $\gamma \in(0, 1)$ 
+
+$$
+||f(x_1)-f(x_2)|| \leq \gamma ||x_1 - x_2||
+$$
+
+
+
+<p><strong>Theorem 3.1</strong> (Contraction Mapping Theorem). For any equation that has the form $x &#x3D;f(x)$ where $x$ and $f(x)$ are real vectors, if $f$ is a contraction mapping, then the following properties hold. </p>
+<ul>
+<li>Existence:   There exists a fixed point $x^*$ satisfying  $f(x^*)=x^*$. </li>
+<li>Uniqueness: The fixed point $x^*$ is unique.</li>
+<li>Algorithm: Consider the iterative process: $x_{k+1} &#x3D; f(x_k)$</li>
+</ul>
+
+
+where $x_k \rightarrow x^*$, $k \rightarrow \infty$ for any initial guess $x_0$.  
+
+The function $f(v)$ on the right-hand side of the BOE in (3.3) is a contraction mapping. For any $v_1, v_2 \in \mathbb{R}^{|S|}$, it holds that
+
+$$
+||f(v_1)-f(v_2)||_\infty \leq \gamma ||v_1 -v_2||_\infty
+$$
+
+here we use the maximum norm. 
+
+
+
+<h3 id="solving-optimal-state-values"><a href="#solving-optimal-state-values" class="headerlink" title="solving optimal state values"></a>solving optimal state values</h3>
+
+Therefore, for the BOE $v = f(v) = \max_{\pi \in \Pi}(r_\pi + \gamma P_\pi v^*)$. 
+
+$v^*$ is the fixed point. There always exists a unique solution $v^*$, which can be solved iteratively by 
+
+$$
+v_{k+1} = f(v_k)= \max_{\pi \in \Pi}(r_\pi + \gamma P_\pi v_k)
+$$
+
+
+
+<h3 id="solving-optimal-policy"><a href="#solving-optimal-policy" class="headerlink" title="solving optimal policy"></a>solving optimal policy</h3>
+
+after we obtain the optimal state values $v^*$, we can easily obtain $\pi^*$ by solving 
+
+$$
+\pi^* = arg\max_{\pi\in \Pi} (r_\pi + \gamma P_\pi v^*)
+$$
+
+
+
+<p>Then </p>
+
+$$
+v^* = r_{\pi^*} + \gamma P_{\pi^*}v^*
+$$
+
+
+
+<h3 id="Greedy-Optimal-Policy-1"><a href="#Greedy-Optimal-Policy-1" class="headerlink" title="Greedy Optimal Policy"></a>Greedy Optimal Policy</h3><p>For any $s \in \mathcal{S}$, the <em><strong>deterministic greedy policy</strong></em></p>
+
+$$
+\pi(a|s) = \begin{cases} 1, \quad a = a^*\\0, \quad a \neq a^*\end{cases}
+$$
+
+
+
+
+
+Here, $a^*(s) = arg \max_a q^*(a, s)$ , where
+
+
+
+
+$$
+q^*(s, a) = \sum_{r\in \mathcal{R}}p(r|s, a)r + \gamma \sum_{s' \in \mathcal{S}}p(s'|s, a)v^*(s')
+$$
 
     </div>
 
@@ -350,6 +557,8 @@
   <div class="index-tags">
     
       <a class="index-tag" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a>
+    
+      <a class="index-tag" href="/tags/Bellman-Equation/">Bellman Equation</a>
     
   </div>
 
@@ -404,6 +613,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Reinforcement-Learning/" rel="tag"># Reinforcement Learning</a>
+              <a href="/tags/Bellman-Equation/" rel="tag"># Bellman Equation</a>
           </div>
 
         
@@ -480,7 +690,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RL-Basic-Concepts"><span class="nav-number">1.</span> <span class="nav-text">RL - Basic Concepts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Basic-Concepts"><span class="nav-number">2.</span> <span class="nav-text">Basic Concepts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Policy-Evaluation"><span class="nav-number">2.1.</span> <span class="nav-text">Policy Evaluation</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Key-Terms"><span class="nav-number">1.</span> <span class="nav-text">Key Terms</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Key-Concept-Key-Tool"><span class="nav-number">2.</span> <span class="nav-text">Key Concept &amp; Key Tool</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Concepts"><span class="nav-number">2.1.</span> <span class="nav-text">Concepts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#State-Value"><span class="nav-number">2.1.1.</span> <span class="nav-text">State Value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Motivating-Example"><span class="nav-number">2.1.2.</span> <span class="nav-text">Motivating Example:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-idea-to-calculate-returns"><span class="nav-number">2.1.3.</span> <span class="nav-text">The idea to calculate returns:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Action-Value"><span class="nav-number">2.1.4.</span> <span class="nav-text">Action Value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Optimal-Policy"><span class="nav-number">2.1.5.</span> <span class="nav-text">Optimal Policy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Optimal-State-Value"><span class="nav-number">2.1.6.</span> <span class="nav-text">Optimal State Value</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tools"><span class="nav-number">2.2.</span> <span class="nav-text">Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bellman-Equation"><span class="nav-number">2.2.1.</span> <span class="nav-text">Bellman Equation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Matrix-Vector-Form"><span class="nav-number">2.2.2.</span> <span class="nav-text">Matrix-Vector Form</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bellman-Equation-in-terms-of-Action-Value"><span class="nav-number">2.2.3.</span> <span class="nav-text">Bellman Equation in terms of Action Value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bellman-Optimality-Equation"><span class="nav-number">2.2.4.</span> <span class="nav-text">Bellman Optimality Equation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-improve-policies"><span class="nav-number">2.2.5.</span> <span class="nav-text">How to improve policies?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Greedy-Optimal-Policy"><span class="nav-number">2.2.6.</span> <span class="nav-text">Greedy Optimal Policy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solving-optimal-state-values"><span class="nav-number">2.2.7.</span> <span class="nav-text">solving optimal state values</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solving-optimal-policy"><span class="nav-number">2.2.8.</span> <span class="nav-text">solving optimal policy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Greedy-Optimal-Policy-1"><span class="nav-number">2.2.9.</span> <span class="nav-text">Greedy Optimal Policy</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -503,13 +713,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -552,7 +762,7 @@
   <div class="sidebar-card sidebar-tags">
     <div class="sidebar-card-title">Tags</div>
     <div class="sidebar-tagcloud">
-      <a href="/tags/Actor-Critic-Method/" style="font-size: 9px;">Actor-Critic Method</a> <a href="/tags/Deep-Q-Learning/" style="font-size: 9px;">Deep Q-Learning</a> <a href="/tags/Importance-Sampling/" style="font-size: 9px;">Importance Sampling</a> <a href="/tags/Monte-Carlo/" style="font-size: 9px;">Monte Carlo</a> <a href="/tags/Policy-Gradient-Method/" style="font-size: 9px;">Policy Gradient Method</a> <a href="/tags/Policy-Iteration/" style="font-size: 9px;">Policy Iteration</a> <a href="/tags/Q-Learning/" style="font-size: 12.5px;">Q-Learning</a> <a href="/tags/REINFORCE/" style="font-size: 9px;">REINFORCE</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 16px;">Reinforcement Learning</a> <a href="/tags/Reinforcement-Learning%EF%BC%8CSarsa/" style="font-size: 9px;">Reinforcement Learning，Sarsa</a> <a href="/tags/Robbins-Monro-Algorithm/" style="font-size: 9px;">Robbins-Monro Algorithm</a> <a href="/tags/SARSA/" style="font-size: 12.5px;">SARSA</a> <a href="/tags/Stochastic-Approximation/" style="font-size: 9px;">Stochastic Approximation</a> <a href="/tags/Stochastic-Gradient-Descent/" style="font-size: 9px;">Stochastic Gradient Descent</a> <a href="/tags/Temporal-Difference-Algorithm/" style="font-size: 9px;">Temporal Difference Algorithm</a> <a href="/tags/Value-Function-Approximation/" style="font-size: 9px;">Value Function Approximation</a> <a href="/tags/Value-Iteration/" style="font-size: 9px;">Value Iteration</a>
+      <a href="/tags/Actor-Critic-Method/" style="font-size: 9px;">Actor-Critic Method</a> <a href="/tags/Bellman-Equation/" style="font-size: 9px;">Bellman Equation</a> <a href="/tags/BioFluid-Mechanics/" style="font-size: 9px;">BioFluid Mechanics</a> <a href="/tags/Deep-Q-Learning/" style="font-size: 9px;">Deep Q-Learning</a> <a href="/tags/Fuild-Mechanics/" style="font-size: 9px;">Fuild Mechanics</a> <a href="/tags/Importance-Sampling/" style="font-size: 9px;">Importance Sampling</a> <a href="/tags/Monte-Carlo/" style="font-size: 9px;">Monte Carlo</a> <a href="/tags/Policy-Gradient-Method/" style="font-size: 9px;">Policy Gradient Method</a> <a href="/tags/Policy-Iteration/" style="font-size: 9px;">Policy Iteration</a> <a href="/tags/Q-Learning/" style="font-size: 12.5px;">Q-Learning</a> <a href="/tags/REINFORCE/" style="font-size: 9px;">REINFORCE</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 16px;">Reinforcement Learning</a> <a href="/tags/Reinforcement-Learning%EF%BC%8CSarsa/" style="font-size: 9px;">Reinforcement Learning，Sarsa</a> <a href="/tags/Robbins-Monro-Algorithm/" style="font-size: 9px;">Robbins-Monro Algorithm</a> <a href="/tags/SARSA/" style="font-size: 12.5px;">SARSA</a> <a href="/tags/Stochastic-Approximation/" style="font-size: 9px;">Stochastic Approximation</a> <a href="/tags/Stochastic-Gradient-Descent/" style="font-size: 9px;">Stochastic Gradient Descent</a> <a href="/tags/Temporal-Difference-Algorithm/" style="font-size: 9px;">Temporal Difference Algorithm</a> <a href="/tags/Value-Function-Approximation/" style="font-size: 9px;">Value Function Approximation</a> <a href="/tags/Value-Iteration/" style="font-size: 9px;">Value Iteration</a>
     </div>
   </div>
 
@@ -685,19 +895,19 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">47k</span>
+    <span title="Symbols count total">58k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">42 mins.</span>
+    <span title="Reading time total">53 mins.</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">Total words:  8.5k</span>
+  <span class="post-count">Total words:  10.7k</span>
 </div>
 
 
