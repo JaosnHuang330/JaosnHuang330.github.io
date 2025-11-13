@@ -30,7 +30,7 @@
 <meta property="og:description" content="This note will mainly talk about the principle of MC Learning.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-11-09T05:12:38.000Z">
-<meta property="article:modified_time" content="2025-11-11T08:39:13.610Z">
+<meta property="article:modified_time" content="2025-11-12T06:00:09.965Z">
 <meta property="article:author" content="Jason Huang">
 <meta property="article:tag" content="Monte Carlo">
 <meta property="article:tag" content="Reinforcement Learning">
@@ -238,7 +238,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-11-11 17:39:13" itemprop="dateModified" datetime="2025-11-11T17:39:13+09:00">2025-11-11</time>
+                <time title="Modified: 2025-11-12 15:00:09" itemprop="dateModified" datetime="2025-11-12T15:00:09+09:00">2025-11-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -277,14 +277,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>7k</span>
+              <span>7.9k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>6 mins.</span>
+              <span>7 mins.</span>
             </span>
             <div class="post-description">This note will mainly talk about the principle of MC Learning.</div>
 
@@ -300,7 +300,7 @@
         <h1 id="Monte-Carlo-Estimation"><a href="#Monte-Carlo-Estimation" class="headerlink" title="Monte Carlo Estimation"></a>Monte Carlo Estimation</h1><blockquote>
 <p>First Introduction of <strong>Model-Free Estimation Algorithm</strong>. The dilemma of Data and Model. The <em><strong>mean estimation</strong></em> is the core of MC Estimation, which <strong>uses stochastic experience samples to solve estimation problem</strong>.</p>
 </blockquote>
-<h2 id="Mean-Estimation"><a href="#Mean-Estimation" class="headerlink" title="Mean Estimation"></a>Mean Estimation</h2><p>Consider the a random variable $X$ which can take values from a finite set $\mathcal X$. There are two approaches to calculate the estimation of $\mathbb{E}[X]$, model based and model-free. $\mathbb{E}[X]$ is the expected value, mean value, and average. </p>
+<h2 id="Mean-Estimation"><a href="#Mean-Estimation" class="headerlink" title="Mean Estimation"></a>Mean Estimation</h2><p>Consider the a random variable $X$ which can take values from a finite set $\mathcal X$. There are two approaches to calculate the estimation of $\mathbb{E}[X]$, model-based and model-free. $\mathbb{E}[X]$ can be called as the expected value, mean value, and average. </p>
 <ol>
 <li><p>model-based </p>
 <p> $$<br> \mathbb{E}[X] &#x3D; \sum_{x \in \mathcal{X}} p(x) x<br> $$</p>
@@ -313,50 +313,71 @@
 <p>For model-based model, the action value is:</p>
 <p>$$<br>q_\pi (s, a) &#x3D; \mathbb{E}[G_t|S_t&#x3D;s, A_t&#x3D;a] &#x3D; \sum_{r\in \mathcal{R}}p(r|s, a)r+ \sum_{s’\in \mathcal{S}}v_\pi(s’)p(s’|s, a)<br>$$</p>
 <p>For model-free model, the action value is the expected return when starting from $(s, a)$. </p>
-<p>$$<br>q_\pi (s, a) &#x3D; \mathbb{E}[G_t|S_t&#x3D;s, A_t&#x3D;a] &#x3D; \sum_{r\in \mathcal{R}}p(r|s, a)r+ \sum_{s’\in \mathcal{S}}v_\pi(s’)p(s’|s, a)<br>$$</p>
 <p>$$<br>q_\pi (s, a) &#x3D; \mathbb{E}[G_t|S_t&#x3D;s, A_t&#x3D;a]&#x3D;\mathbb{E}[R_{t+1}+ \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots |S_t&#x3D;s, A_t&#x3D;a]<br>$$</p>
 <p>Starting from $(s, a)$, the agent can interact with the environment by <strong>following policy $\pi_k$ and obtain certain number of episodes.</strong> Suppose there are $n$ episodes and the return for each episode is $g_{\pi_k}^{(i)}(s, a)$, then the $q_\pi (s, a)$ can be expressed as</p>
 <p>$$<br>q_{\pi_k} (s, a) &#x3D; \mathbb{E}[G_t|S_t&#x3D;s, A_t&#x3D;a] &#x3D; \frac{1}{n}\sum_{i&#x3D;1}^n g_{\pi_k}^{(i)}(s, a)<br>$$</p>
 <p><strong>Algorithm</strong> </p>
-<p>For the kth iteration, do</p>
-<p>For every state $s \in \mathcal{S}$ in state space, do</p>
-<p>For every action $a \in \mathcal{A}$ in action space, do</p>
-<p>Collecting sufficiently many episodes starting from $(s, a)$ by following $\pi_k$</p>
-<p><strong>Policy Evaluation</strong>:</p>
-<p>$q_{\pi_k} (s,a) \approx q_k(s, a) &#x3D;$  the average return of all the episodes starting from $(s, a)$</p>
-<p><strong>Policy improvement</strong>:</p>
-<p>$a_k^*(s) &#x3D; arg \max_a q_k(s, a)$</p>
+<p><strong>Initialization</strong>: Initial guess $\pi_0$.</p>
+<p><strong>Goal</strong>: Search for an optimal policy. </p>
+<p><strong>Loop</strong>: For the kth iteration, do</p>
+<ul>
+<li><p>For every state $s \in \mathcal{S}$ in state space, do</p>
+<ul>
+<li>For every action $a \in \mathcal{A}$ in action space, do<ul>
+<li>Collecting sufficiently many episodes starting from $(s, a)$ by following $\pi_k$</li>
+<li><strong>Policy Evaluation</strong>:</li>
+<li>$q_{\pi_k} (s,a) \approx q_k(s, a) &#x3D;$  the average return of all the episodes starting from $(s, a)$</li>
+</ul>
+</li>
+<li><strong>Policy improvement</strong>:</li>
+<li>$a_k^*(s) &#x3D; arg \max_a q_k(s, a)$</li>
+<li>$\pi_{k+1}(a|s) &#x3D; 1$ if $a &#x3D; a_k^*$ and $\pi_{k+1}(a|s)&#x3D;0$ otherwise</li>
+</ul>
+</li>
+</ul>
 <p>where we can also define the <em><strong>episode length</strong></em>: The length of episode will decide whether an agent can <strong>reach the target</strong> or <strong>get positive reward</strong>.  which also means that if the episode is too small, the return can not be positive so is the <strong>expected state value</strong>. </p>
 <p>The episode length will greatly impact the final policies.  </p>
-<h3 id="sparse-reward"><a href="#sparse-reward" class="headerlink" title="sparse reward"></a>sparse reward</h3><p>which refers to the scenario in which no positive rewards can be obtained unless the target is reached. Therefore, when the state space is too large, it will downgrade the computational efficiency. To solve this problem, we can apply <em><strong>non-sparse reward,</strong></em> which is the setting with “attractive field”, the field except for target which also has positive reward. </p>
-<h2 id="MC-Exploring-Start"><a href="#MC-Exploring-Start" class="headerlink" title="MC Exploring Start"></a>MC Exploring Start</h2><h3 id="Initial-Visit"><a href="#Initial-Visit" class="headerlink" title="Initial Visit"></a>Initial Visit</h3><p>An episode is only used to estimate the <em><strong>action value</strong></em> of the <em><strong>initial state-action pair</strong></em> that the episode starts from.  This is the strategy of “visit” used by <em><strong>MC Basic</strong></em>. </p>
+<h3 id="sparse-reward"><a href="#sparse-reward" class="headerlink" title="sparse reward"></a>sparse reward</h3><p>which refers to the scenario <strong>in which no positive rewards can be obtained unless the target is reached</strong>. Therefore, when the state space is too large, it will downgrade the computational efficiency. To solve this problem, we can apply <em><strong>non-sparse reward,</strong></em> which is the setting with “attractive field”, the field except for target which also has positive reward. </p>
+<h2 id="MC-Exploring-Start"><a href="#MC-Exploring-Start" class="headerlink" title="MC Exploring Start"></a>MC Exploring Start</h2><h3 id="Initial-Visit"><a href="#Initial-Visit" class="headerlink" title="Initial Visit"></a>Initial Visit</h3><p>An episode is only used to estimate the <em><strong>action value</strong></em> of the <em><strong>initial state-action pair</strong></em> that the episode starts from.  This is the strategy of “initial visit” used by <em><strong>MC Basic</strong></em>. </p>
 <p>e.g. Suppose there is an episode  $s1 \xrightarrow{a_2} s3 \xrightarrow{a_1} \cdots$</p>
-<p>This episode only used to estimate $q_t(s1, a2)$, this is sample wasting. </p>
-<p>A state-action pair can be visited multiple times in an episode. </p>
+<p>This episode is only used to estimate $q_t(s1, a2)$, this is sample wasting. There are many state-action pairs wasted in an episode. </p>
 <h3 id="first-visit"><a href="#first-visit" class="headerlink" title="first-visit"></a>first-visit</h3><p>If only counting the first-time visits. The <strong>samples are approximately independent,</strong> the variance will be smaller in this case. However, the <strong>trajectory of every</strong> $(s, a)$ only has one sample. </p>
-<h3 id="every-visit"><a href="#every-visit" class="headerlink" title="every-visit"></a>every-visit</h3><p>If <strong>counting every visit of a state-action pair.</strong> This is the best for sample usage efficiency. The number of sample is larger, which result in a faster convergence speed. But the sample are highly correlated to each other. </p>
+<h3 id="every-visit"><a href="#every-visit" class="headerlink" title="every-visit"></a>every-visit</h3><p>It can <strong>count every visit of a state-action pair.</strong> <em>If an episode is sufficiently long to visit every state-action pair multiple times, this sigle episode then is sufficient to estimalte all action values</em>. This is the best for sample usage efficiency. The number of sample is larger, which result in a faster convergence speed. But the sample are highly correlated to each other. </p>
 <p>There are two strategies to <strong>update the policies</strong>.:</p>
 <ul>
-<li>In the policy evaluation step, collecting all the episodes <strong>starting from</strong> the <strong>same state-action pair</strong> and using the <strong>average return of these episode</strong>.  ****</li>
-<li>Use the return of s<strong>ingle episode</strong> to approximate the <strong>single action value</strong>.</li>
+<li>In the policy evaluation step, collecting all the episodes <strong>starting from</strong> the <strong>same state-action pair</strong> and using the <strong>average return of these episode</strong>. (used by MC Basic)</li>
+<li>Use <strong>the return of single episode</strong> to approximate the <strong>corresponding action value</strong> and improve the policy in an episode-by-episode fashion.</li>
 </ul>
 <p><strong>Algorithm 5.2: MC Exploring Starts</strong></p>
-<p>Initialization: Initial Policy $\pi_0(a|s)$  and initial value $q(s, a)$ for all $(s, a)$.  $\text{Returns}(s, a)&#x3D;0$ and $\text{Nums}(s, a)&#x3D;0$.  </p>
-<p>For each episode, do</p>
-<p>Episode generation: Selecting a starting state-action pair $(s_0, a_0)$ and ensure that all pairs can be selected. Following the current policy, generate an episode of length T. </p>
-<p>initialization for each episode: g ← 0</p>
-<p>For each episode, $t &#x3D; T-1, T-2, \cdots, 0$, do</p>
-<p>$g \leftarrow \gamma g + r_{t+1}$</p>
-<p>Returns $(s_t, a_t) \leftarrow$  Returns $(s_t, a_t) + g$</p>
-<p>Nums $(s_t, a_t) \leftarrow$  Nums $(s_t, a_t) + 1$</p>
-<p>Policy Evaluation: </p>
+<p><strong>Initialization</strong>: Initial Policy $\pi_0(a|s)$  and initial value $q(s, a)$ for all $(s, a)$.  $\text{Returns}(s, a)&#x3D;0$ and $\text{Nums}(s, a)&#x3D;0$.  </p>
+<p><strong>Goal</strong>: Search for an optimal policy. </p>
+<p><strong>Loop</strong>: For each episode, do</p>
+<ul>
+<li><p>Episode generation: Selecting a starting state-action pair $(s_0, a_0)$ and ensure that all pairs can be selected. Following the current policy, generate an episode of length T. </p>
+</li>
+<li><p>Initialization for each episode: g ← 0.</p>
+</li>
+<li><p>For each episode, $t &#x3D; T-1, T-2, \cdots, 0$, do</p>
+<ul>
+<li><p>$g \leftarrow \gamma g + r_{t+1}$</p>
+</li>
+<li><p>Returns $(s_t, a_t) \leftarrow$  Returns $(s_t, a_t) + g$</p>
+</li>
+<li><p>Nums $(s_t, a_t) \leftarrow$  Nums $(s_t, a_t) + 1$</p>
+</li>
+<li><p><strong>Policy Evaluation</strong>: </p>
 <p>$q(s_t, a_t) \leftarrow \text{Returns} (s_t, a_t) &#x2F; \text{Nums} (s_t, a_t)$</p>
-<p>Policy Improvement:</p>
-<p>$a_k^*(s) &#x3D; arg \max_a q_k(s, a)$</p>
+</li>
+<li><p><strong>Policy Improvement</strong>:</p>
+<p>$\pi(a|s_t)&#x3D;1$ if $a &#x3D; arg \max_a q(s, a)$ and $\pi(a|s_t)&#x3D;0$ otherwise</p>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="MC-epsilon-Greedy"><a href="#MC-epsilon-Greedy" class="headerlink" title="MC $\epsilon$-Greedy"></a>MC $\epsilon$-Greedy</h2><blockquote>
-<p>The fundamental idea of this Greedy Algorithm is to <strong>enhance exploration</strong> by sacrificing optimality&#x2F;exploitation.</p>
+<p>Only if every state-action pair is well explored, their state-action values can be well estimated. This is the disavantage of both MC Basic and MC exploring start. Otherwise, if an action is not well explored, the action value may not be accurately estimated. The corresponding action may not be chosen even it is the optimal one. The fundamental idea of this Greedy Algorithm is to <strong>enhance exploration</strong> by balancing exploitation and exploration.</p>
 </blockquote>
-<h3 id="soft-policy"><a href="#soft-policy" class="headerlink" title="soft policy"></a>soft policy</h3><p>It has the <strong>positive probability</strong> to <strong>take any action at any state</strong>. With <em><strong>soft policy</strong></em>, a single episode that is <em><strong>sufficiently long</strong></em> can <em><strong>visit every state-action pair many times</strong></em>. </p>
+<h3 id="soft-policy"><a href="#soft-policy" class="headerlink" title="soft policy"></a>soft policy</h3><p>It has the <strong>positive probability</strong> to <strong>take any action at any state</strong>. With <em><strong>soft policy</strong></em>, a single episode that is <em><strong>sufficiently long</strong></em> can <em><strong>visit every state-action pair many times</strong></em>. Therefore, this idea to some degree achieves automation of generating a sequence of episodes that can visit every state-action pairs multiple times. </p>
 <p><strong>The policy description</strong></p>
 <p>The MC $\epsilon$-Greedy policy is <strong>a stochastic policy</strong> that has a <strong>higher chance of choosing the greedy action</strong> and the s<strong>ame nonzero probability of taking any other action</strong>. </p>
 
@@ -374,49 +395,51 @@ $$
 <p>When the $\epsilon$  is 0, this is totally greedy; when $\epsilon$  is 1, the probability of taking any action equals to $\frac{\epsilon}{|\mathcal{A(s)}|-1}$.</p>
 <p>The <em><strong>Policy Improvement</strong></em> based on $\epsilon$-greedy. </p>
 <p>$$<br>\pi_{k+1}(s) &#x3D; arg \max_{\pi \in \Pi_\epsilon} \sum_a \pi(a|s) q_{\pi_k}(s, a)<br>$$</p>
-<p>The policy is </p>
+<p>The $\epsilon$-greedy policy is </p>
 
 $$
-\pi(a \mid s) =
+\pi_{k+1}(a | s) =
 \begin{cases}
-1 - \dfrac{\epsilon}{|\mathcal{A}(s)|}\bigl(|\mathcal{A}(s)|-1\bigr), & a = a^*, \\
-\dfrac{\epsilon}{|\mathcal{A}(s)|}, & a \neq a^*
+1 - \dfrac{\epsilon}{|\mathcal{A}(s)|}\bigl(|\mathcal{A}(s)|-1\bigr), & a = a_k^*, \\
+\dfrac{\epsilon}{|\mathcal{A}(s)|}, & a \neq a_k^*
 \end{cases}
 $$
 
 
 
 
-<p><strong>Algorithm 5.2: MC Exploring Starts</strong></p>
-<p>Initialization: Initial Policy $\pi_0(a|s)$  and initial value $q(s, a)$ for all $(s, a)$.  $\text{Returns}(s, a)&#x3D;0$ and $\text{Nums}(s, a)&#x3D;0$.  </p>
-<p>For each episode, do</p>
-<p>Episode generation: Selecting a starting state-action pair $(s_0, a_0)$. Following the current policy, generate an episode of length T. </p>
-<p>initialization for each episode: g ← 0</p>
-<p>For each episode, $t &#x3D; T-1, T-2, \cdots, 0$, do</p>
-<p>$g \leftarrow \gamma g + r_{t+1}$</p>
-<p>Returns $(s_t, a_t) \leftarrow$  Returns $(s_t, a_t) + g$</p>
-<p>Nums $(s_t, a_t) \leftarrow$  Nums $(s_t, a_t) + 1$</p>
-<p>Policy Evaluation: </p>
-<p>$q(s_t, a_t) \leftarrow \text{Returns} (s_t, a_t) &#x2F; \text{Nums} (s_t, a_t)$</p>
-<p>Policy Improvement:</p>
-<p>$a^* &#x3D; arg \max_a q(s_t, a)$</p>
-<p>The policy is </p>
+<p><strong>Algorithm</strong></p>
+<p><strong>Initialization</strong>: Initial Policy $\pi_0(a|s)$  and initial value $q(s, a)$ for all $(s, a)$.  $\text{Returns}(s, a)&#x3D;0$ and $\text{Nums}(s, a)&#x3D;0$.  </p>
+<p><strong>Goal</strong>: Search for an optimal policy.</p>
+<p><strong>Loop</strong>: For each episode, do</p>
+<ul>
+<li><p>Episode generation: Selecting a starting state-action pair $(s_0, a_0)$. Following the current policy, generate an episode of length T. </p>
+</li>
+<li><p>initialization for each episode: g ← 0</p>
+</li>
+<li><p>For each episode, $t &#x3D; T-1, T-2, \cdots, 0$, do</p>
+<ul>
+<li><p>$g \leftarrow \gamma g + r_{t+1}$</p>
+</li>
+<li><p>Returns $(s_t, a_t) \leftarrow$  Returns $(s_t, a_t) + g$</p>
+</li>
+<li><p>Nums $(s_t, a_t) \leftarrow$  Nums $(s_t, a_t) + 1$</p>
+</li>
+<li><p>Policy Evaluation:<br>$q(s_t, a_t) \leftarrow \text{Returns} (s_t, a_t) &#x2F; \text{Nums} (s_t, a_t)$</p>
+</li>
+<li><p>Policy Improvement:<br>$a^* &#x3D; arg \max_a q(s_t, a)$<br>The policy is </p>
 
-$$
-\pi(a \mid s) =
-\begin{cases}
-1 - \dfrac{\epsilon}{|\mathcal{A}(s)|}\bigl(|\mathcal{A}(s)| - 1\bigr), & a = a^*, \\[4pt]
-\dfrac{\epsilon}{|\mathcal{A}(s)|}, & a \neq a^*
-\end{cases}
-$$
-
-
-
-
-
-
-
-
+    $$
+    \pi(a \mid s) =
+    \begin{cases}
+    1 - \dfrac{\epsilon}{|\mathcal{A}(s)|}\bigl(|\mathcal{A}(s)| - 1\bigr), & a = a^*, \\[4pt]
+    \dfrac{\epsilon}{|\mathcal{A}(s)|}, & a \neq a^*
+    \end{cases}
+    $$
+    </li>
+</ul>
+</li>
+</ul>
 
     </div>
 
@@ -779,19 +802,19 @@ $$
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">58k</span>
+    <span title="Symbols count total">66k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">53 mins.</span>
+    <span title="Reading time total">1:01</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">Total words:  10.7k</span>
+  <span class="post-count">Total words:  12.1k</span>
 </div>
 
 

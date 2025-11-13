@@ -30,7 +30,7 @@
 <meta property="og:description" content="This note wiil introduce Actor-Critic Method, which can basically seen as the combination of Value-based method and Policy-based method.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-11-09T20:05:26.000Z">
-<meta property="article:modified_time" content="2025-11-11T08:33:01.092Z">
+<meta property="article:modified_time" content="2025-11-12T16:21:35.256Z">
 <meta property="article:author" content="Jason Huang">
 <meta property="article:tag" content="Actor-Critic Method">
 <meta property="article:tag" content="Importance Sampling">
@@ -239,7 +239,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-11-11 17:33:01" itemprop="dateModified" datetime="2025-11-11T17:33:01+09:00">2025-11-11</time>
+                <time title="Modified: 2025-11-13 01:21:35" itemprop="dateModified" datetime="2025-11-13T01:21:35+09:00">2025-11-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -280,7 +280,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>6.3k</span>
+              <span>6.9k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -302,9 +302,17 @@
       
         <h1 id="Actor-Critic-Method"><a href="#Actor-Critic-Method" class="headerlink" title="Actor-Critic Method"></a>Actor-Critic Method</h1><blockquote>
 <p>It’s the combination of <strong>value-based and policy-based algorithm</strong>. But it is still in the scope of <strong>policy gradient algorithm</strong>. Actor is for policy update, while critic is the value update step.</p>
+
+
+$$
+\theta_{t+1} = \theta_t + \alpha \nabla_\theta J(\theta_t) =\theta_t + \alpha \mathbb{E}_{S\sim \eta, A \sim \pi(S, \theta)}[\nabla_\theta \ln \pi (A|S, \theta )q_\pi(S, A)]
+$$
+
+$$
+\theta_{t+1}  =\theta_t + \alpha [\nabla_\theta \ln \pi (a_t|s_t, \theta )q_t(s_t, a_t)]
+$$
+
 </blockquote>
-<p>$$<br>\theta_{t+1} &#x3D; \theta_t + \alpha \nabla_\theta J(\theta_t) &#x3D;\theta_t + \alpha \mathbb{E}<em>{S\sim \eta, A \sim \pi(S, \theta)}[\nabla</em>\theta \ln \pi (A|S, \theta )q_\pi(S, A)]<br>$$</p>
-<p>$$<br>\theta_{t+1}  &#x3D;\theta_t + \alpha [\nabla_\theta \ln \pi (a_t|s_t, \theta )q_t(s_t, a_t)]<br>$$</p>
 <p>When the $q_t(s_t, a_t)$ is estimated by TD Learning, the algorithm will be <em><strong>actor-critic. This shows the combination of  value-based and policy-based methods,</strong> as $\theta$ appears in $\pi$ and $q_\pi$.</em> </p>
 <ul>
 <li>The <em><strong>critic</strong></em> corresponds to the <em><strong>value update step via the Sarsa algorithm.</strong></em></li>
@@ -315,46 +323,143 @@
 <li>If we use <strong>MC learning</strong>, then the method is called <strong>REINFORCE.</strong></li>
 <li>if we use <strong>Temporal Difference Learning</strong>, then the method is called <strong>Actor-Critic</strong></li>
 </ul>
-<h3 id="Algorithm-QAC"><a href="#Algorithm-QAC" class="headerlink" title="Algorithm QAC"></a>Algorithm QAC</h3><p><strong>Initialization</strong>:  A policy function is initialized as $\pi(a|s, \theta_0)$; An action value function is initialized as $q(s, a, w_0)$.</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p><strong>Algorithm</strong>: QAC</p>
+<p><strong>Initialization</strong>:  A policy function is initialized as $\pi(a|s, \theta_0)$; An action value function is initialized as $q(s, a, w_0)$.</p>
 <p><strong>Goal</strong>: to minimize the objective function $J(\theta)$</p>
 <p>At time step t in each episode</p>
-<p>Generate $a_t$ by following $\pi(a_t|s_t,\theta_t)$, observing $s_{t+1}, r_{t+1}$ and generate $a_{t+1}$ by following $\pi(a_{t+1}|s_{t+1}, \theta_t)$.</p>
-<p>Actor (Policy Update)</p>
+<ul>
+<li><p>Generate $a_t$ by following $\pi(a_t|s_t,\theta_t)$, observing $s_{t+1}, r_{t+1}$ and generate $a_{t+1}$ by following $\pi(a_{t+1}|s_{t+1}, \theta_t)$.</p>
+</li>
+<li><p><strong>Actor (Policy Update)</strong></p>
+</li>
+</ul>
 <p>$$<br>\theta_{t+1}  &#x3D;\theta_t + \alpha [\nabla_\theta \ln \pi (a_t|s_t, \theta )q_t(s_t, a_t)]<br>$$</p>
-<p>Critic (Value Update)</p>
+<ul>
+<li><strong>Critic (Value Update)</strong></li>
+</ul>
 <p>$$<br>w_{t+1} &#x3D; w_k + \alpha_k(r_{t+1} + \gamma \hat {q}(s_{t+1}, a_{t+1}, w_t) - \hat{q}(s_t, a_t,  w_t))\nabla_w \hat{q}(s_t, a_t, w_t)<br>$$</p>
-<h2 id="Advantage-Actor-Critic-A2C"><a href="#Advantage-Actor-Critic-A2C" class="headerlink" title="Advantage Actor-Critic (A2C)"></a>Advantage Actor-Critic (A2C)</h2><h3 id="Baseline-Invariance"><a href="#Baseline-Invariance" class="headerlink" title="Baseline Invariance"></a>Baseline Invariance</h3><p>$$<br>\mathbb{E}<em>{S\sim \eta, A \sim \pi(S, \theta)}[\nabla</em>\theta \ln \pi (A|S, \theta )q_t(S, A)]  &#x3D; \mathbb{E}<em>{S\sim \eta, A \sim \pi(S, \theta)}[\nabla</em>\theta \ln \pi (A|S, \theta )(q_t(S, A) - b(S))]<br>$$</p>
+<h2 id="Advantage-Actor-Critic-A2C"><a href="#Advantage-Actor-Critic-A2C" class="headerlink" title="Advantage Actor-Critic (A2C)"></a>Advantage Actor-Critic (A2C)</h2><h3 id="Baseline-Invariance"><a href="#Baseline-Invariance" class="headerlink" title="Baseline Invariance"></a>Baseline Invariance</h3>
+$$
+\mathbb{E}_{S\sim \eta, A \sim \pi(S, \theta)}[\nabla_\theta \ln \pi (A|S, \theta )q_t(S, A)]  = \mathbb{E}_{S\sim \eta, A \sim \pi(S, \theta)}[\nabla_\theta \ln \pi (A|S, \theta )(q_t(S, A) - b(S))]
+$$
+
+
+
 <p>The <em><strong>baseline</strong></em> is a scalar function of $S$. It is useful since it can reduce the <strong>approximation variance</strong>, when we use samples to approximate the true gradient. </p>
 <p>The optimal baseline to minimize $\text{var}(X)$  is </p>
-<p>$$<br>b^*(s) &#x3D; \frac{\mathbb{E}<em>{\mathcal{A} \sim \pi}[||\nabla</em>\theta \ln \pi(A|s, \theta_t)||^2\ q_\pi(s, A)]}{\mathbb{E}<em>{\mathcal{A} \sim \pi}[||\nabla</em>\theta \ln \pi(A|s, \theta_t)||^2]}, \quad s\in \mathcal{S}<br>$$</p>
-<p>However, we always use </p>
-<p>$$<br>b^{s} &#x3D; \mathbb{E}<em>{A\sim\pi}[{q</em>\pi(s, A)}] &#x3D; v_\pi(s)<br>$$</p>
-<p>Therefore the gradient ascent becomes</p>
-<p>$$<br>\theta_{t+1}  &#x3D;\theta_t + \alpha \mathbb{E}<em>{S\sim \eta, A \sim \pi(S, \theta)}[\nabla</em>\theta \ln \pi (A|S, \theta )(q_t(S, A) - v_t(S))] \&#x3D;  \theta_t + \alpha \mathbb{E}<em>{S\sim \eta, A \sim \pi(S, \theta)}[\nabla</em>\theta \ln \pi (A|S, \theta )\delta_t(S, A)]<br>$$</p>
-<p>$\delta _\pi(S, A)$ is called <em><strong>advantage function.</strong></em> This an be approximated by <em><strong>TD errors.</strong></em></p>
-<p>$$<br>q_t(s_t, a_t)- v_t(s_t) \approx r_{t+1} + \gamma v_t(s_{t+1}) - v_t(s_t)<br>$$</p>
-<p>Since we use the <strong>TD errors</strong>,  this method is also called <strong>TD-AC.</strong> </p>
+
+
+ 
+
+$$
+b^*(s) = \frac{\mathbb{E}_{\mathcal{A} \sim \pi}[||\nabla_\theta \ln \pi(A|s, \theta_t)||^2\ q_\pi(s, A)]}{\mathbb{E}_{\mathcal{A} \sim \pi}[||\nabla_\theta \ln \pi(A|s, \theta_t)||^2]}, \quad s\in \mathcal{S}
+$$
+
+However, we always use 
+$$
+b^{s} = \mathbb{E}_{A\sim\pi}[{q_\pi(s, A)}] = v_\pi(s)
+$$
+
+Therefore the gradient ascent becomes
+
+$$
+\theta_{t+1}  =\theta_t + \alpha \mathbb{E}_{S\sim \eta, A \sim \pi(S, \theta)}[\nabla_\theta \ln \pi (A|S, \theta )(q_t(S, A) - v_t(S))] \\=  \theta_t + \alpha \mathbb{E}_{S\sim \eta, A \sim \pi(S, \theta)}[\nabla_\theta \ln \pi (A|S, \theta )\delta_t(S, A)]
+$$
+
+
+
+
+
+$\delta _\pi(S, A)$ is called advantage function. This an be approximated by TD errors.
+$$
+q_t(s_t, a_t)- v_t(s_t) \approx r_{t+1} + \gamma v_t(s_{t+1}) - v_t(s_t)
+$$
+
+Since we use the TD errors,  this method is also called TD-AC.
+
+
+
+<p><strong>Algorithm</strong>: Q2C</p>
+<p><strong>Initialization</strong>:  A policy function is initialized as $\pi(a|s, \theta_0)$; A value function $v(s, w_0)$ where $w_0$ is the initial parameter. .</p>
+<p><strong>Goal</strong>: to minimize the objective function $J(\theta)$</p>
+<p>At time step t in each episode, do</p>
+<ul>
+<li><p>Generate $a_t$ by following $\pi(a_t|s_t,\theta_t)$, observing $s_{t+1}, r_{t+1}$.</p>
+</li>
+<li><p><strong>Advantage (TD error)</strong>: </p>
+<p>$\delta_t &#x3D; r_{t+1} + \gamma v(s_{t+1}, w_t) - v(s_t, w_t)$</p>
+</li>
+<li><p><strong>Actor (Policy Update)</strong></p>
+</li>
+</ul>
+<p>$$<br>\theta_{t+1}  &#x3D;\theta_t + \alpha \delta_t \nabla_\theta \ln\pi(a_t|s_t, \theta_t)<br>$$</p>
+<ul>
+<li><strong>Critic (Value Update)</strong></li>
+</ul>
+<p>$$<br>w_{t+1} &#x3D; w_k + \alpha_k \delta_t  \nabla_w v(s_t,w_t)<br>$$</p>
 <h3 id="Off-Policy-AC"><a href="#Off-Policy-AC" class="headerlink" title="Off-Policy AC"></a>Off-Policy AC</h3><h3 id="Importance-Sampling"><a href="#Importance-Sampling" class="headerlink" title="Importance Sampling"></a>Importance Sampling</h3><p>Our goal is to estimate $\mathbb{E}_{X\sim p_0}[X]$. </p>
-<p>Suppose we have random variable $X \in \mathcal{X}$, and we have its probability distribution $p_0(X)$. If the sample ${x_i}<em>{i&#x3D;1}^{n}$ are generated by following the distribution $p_0$, then we can use the mean estimation $\bar x$  to approximate the $\mathbb{E}</em>{X\sim p_0}[X]$.</p>
-<p>However, when the sample ${x_i}_{i&#x3D;1}^{n}$ is not generated from $p_0$, but generted from $p_1$, what should we do?</p>
-<p>In this case, we can use <em><strong>importance sampling</strong></em> technique to approximate it. </p>
-<p>$$<br>\mathbb{E}<em>{X\sim p_0}[X] &#x3D; \sum</em>{x \in \mathcal{X}} p_0(x)x &#x3D; \sum_{x \in \mathcal{X}}p_1(x)\frac{p_0(x)}{p_1(x)}x &#x3D; \mathbb{E}_{X\sim p_1}[f(X)]<br>$$</p>
-<p>$$<br>\mathbb{E}<em>{X\sim p_0}[X] &#x3D; \mathbb{E}</em>{X\sim p_1}[f(X)] \approx \bar{f} &#x3D; \frac{1}{n} \sum_{i&#x3D;1}^n\frac{p_0(x_i)}{p_1(x_i)}x_i<br>$$</p>
-<p>where the $\frac{p_0(x_i)}{p_1(x_i)}$ is the importance weight</p>
-<h2 id="Off-policy-policy-gradient-Theorem"><a href="#Off-policy-policy-gradient-Theorem" class="headerlink" title="Off-policy policy gradient Theorem"></a>Off-policy policy gradient Theorem</h2><p>$$<br>J(\theta) &#x3D; \sum_{s\in \mathbb{S}} d_\beta(s)v_\pi(s) &#x3D; \mathbb{E}<em>{\mathbb{S \sim d</em>\beta}}[v_\pi(S)]<br>$$</p>
-<p>$$<br>\nabla_\theta J(\theta) &#x3D; \mathbb{E}<em>{\mathcal{S}\sim \rho, A\sim \beta}[\frac{\pi(A|S, \theta)}{\beta(A|S)}\nabla</em>\theta \ln(A|S, \theta)q_\pi(S, A)]<br>$$</p>
-<p>where the $\frac{\pi(A|S, \theta)}{\beta(A|S)}$ is the importance weight. </p>
-<p>$$<br>\rho (s)&#x3D; \sum_{s’\in \mathcal{S}}d_{\beta}(s’)\text{Pr}_\pi(s|s’)<br>$$</p>
-<p>After we add baseline to reduce the estimation variance.</p>
-<p>$$<br>\nabla_\theta J(\theta) &#x3D; \mathbb{E}<em>{\mathcal{S}\sim \rho, A\sim \beta}[\frac{\pi(A|S, \theta)}{\beta(A|S)}\nabla</em>\theta \ln(A|S, \theta)(q_\pi(S, A)-v_\pi(S))]<br>$$</p>
-<p>The corresponding SGA is</p>
-<p>$$<br>\theta_{t+1} &#x3D; \theta_{t} + \frac{\pi(a_t|s_t, \theta)}{\beta(a_t|s_t)}\delta_t\nabla_\theta \ln(a_t|s_t, \theta)<br>$$</p>
+
+
+Suppose we have random variable $X \in \mathcal{X}$, and we have its probability distribution $p_0(X)$. If the sample $\{x_i\}_{i=1}^{n}$ are generated by following the distribution $p_0$, then we can use the mean estimation $\bar x$  to approximate the $\mathbb{E}_{X\sim p_0}[X]$.
+
+However, when the sample $\{x_i\}_{i=1}^{n}$ is not generated from $p_0$, but generted from $p_1$, what should we do?
+
+In this case, we can use importance sampling technique to approximate it. 
+
+$$
+\mathbb{E}_{X\sim p_0}[X] = \sum_{x \in \mathcal{X}} p_0(x)x = \sum_{x \in \mathcal{X}}p_1(x)\frac{p_0(x)}{p_1(x)}x = \mathbb{E}_{X\sim p_1}[f(X)]
+$$
+
+$$
+\mathbb{E}_{X\sim p_0}[X] = \mathbb{E}_{X\sim p_1}[f(X)] \approx \bar{f} = \frac{1}{n} \sum_{i=1}^n\frac{p_0(x_i)}{p_1(x_i)}x_i
+$$
+
+where the $\frac{p_0(x_i)}{p_1(x_i)}$ is the importance weight
+
+
+
+
+
+<h2 id="Off-policy-policy-gradient-Theorem"><a href="#Off-policy-policy-gradient-Theorem" class="headerlink" title="Off-policy policy gradient Theorem"></a>Off-policy policy gradient Theorem</h2>
+$$
+J(\theta) = \sum_{s\in \mathbb{S}} d_\beta(s)v_\pi(s) = \mathbb{E}_{\mathbb{S \sim d_\beta}}[v_\pi(S)]
+$$
+
+$$
+\nabla_\theta J(\theta) = \mathbb{E}_{\mathcal{S}\sim \rho, A\sim \beta}[\frac{\pi(A|S, \theta)}{\beta(A|S)}\nabla_\theta \ln(A|S, \theta)q_\pi(S, A)]
+$$
+
+where the $\frac{\pi(A|S, \theta)}{\beta(A|S)}$ is the importance weight. 
+
+$$
+\rho (s)= \sum_{s'\in \mathcal{S}}d_{\beta}(s')\text{Pr}_\pi(s|s')
+$$
+
+After we add baseline to reduce the estimation variance.
+
+$$
+\nabla_\theta J(\theta) = \mathbb{E}_{\mathcal{S}\sim \rho, A\sim \beta}[\frac{\pi(A|S, \theta)}{\beta(A|S)}\nabla_\theta \ln(A|S, \theta)(q_\pi(S, A)-v_\pi(S))]
+$$
+
+The corresponding SGA is
+
+$$
+\theta_{t+1} = \theta_{t} + \frac{\pi(a_t|s_t, \theta)}{\beta(a_t|s_t)}\delta_t\nabla_\theta \ln(a_t|s_t, \theta)
+$$
+
+
+
 <h2 id="Deterministic-Actor-Critic"><a href="#Deterministic-Actor-Critic" class="headerlink" title="Deterministic Actor-Critic"></a>Deterministic Actor-Critic</h2><blockquote>
 <p>Deterministic Case is naturally off-policy and effectively handle <strong>continuous action spaces</strong>.  Here, $a &#x3D; \mu(s, \theta)$ is used to denote a deterministic policy.</p>
 </blockquote>
-<p>$$<br>\nabla_\theta J(\theta) &#x3D; \sum_{s\in \mathcal{S}} d_\mu(s)\nabla_\theta ,\mu(s)(\nabla_a q_\mu (s, a))|<em>{a &#x3D; \mu(s)} &#x3D; \mathbb{E}</em>{\mathcal{S} \sim d_{\mu}}[\nabla_\theta \mu(S)(\nabla_a q_\mu(S, a))|_{a&#x3D;\mu(S)}]<br>$$</p>
-<p>The corresponding stochastic gradient-ascent algorithm is </p>
-<p>$$<br>\theta_{t+1} &#x3D; \theta_{t} +\alpha_\theta\nabla_\theta \mu(s_t)(\nabla_a q_\mu(s_t, a))|_{a&#x3D;\mu(s_t)}<br>$$</p>
+
+$$
+\nabla_\theta J(\theta) = \sum_{s\in \mathcal{S}} d_\mu(s)\nabla_\theta \,\mu(s)(\nabla_a q_\mu (s, a))|_{a = \mu(s)} = \mathbb{E}_{\mathcal{S} \sim d_{\mu}}[\nabla_\theta \mu(S)(\nabla_a q_\mu(S, a))|_{a=\mu(S)}]
+$$
+
+
+
+<p>The corresponding stochastic gradient-ascent algorithm is<br>$$<br>\theta_{t+1} &#x3D; \theta_{t} +\alpha_\theta\nabla_\theta \mu(s_t)(\nabla_a q_\mu(s_t, a))|_{a&#x3D;\mu(s_t)}<br>$$</p>
 <p>DAC is off-policy, as the behavior policy $d_\mu$ maybe is different from the target policy $\mu$. The actor is off-policy, since there is no $A$ in the expression. The critic is off-policy as the the first policy that generate $a_t$ by interacting with the environment, which is then the behavior policy, while the second policy is $u$, which is the target policy the critic aims to evaluate. </p>
 <p><strong>Algorithm: Deterministic policy gradient or deterministic actor-critic</strong></p>
 <p><strong>Initialization</strong>: A given behavior policy $\beta(a|s)$. A target policy $\pi(a|s,\theta_0)$. </p>
@@ -526,7 +631,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Actor-Critic-Method"><span class="nav-number">1.</span> <span class="nav-text">Actor-Critic Method</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Algorithm-QAC"><span class="nav-number">1.1.</span> <span class="nav-text">Algorithm QAC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advantage-Actor-Critic-A2C"><span class="nav-number">1.2.</span> <span class="nav-text">Advantage Actor-Critic (A2C)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Baseline-Invariance"><span class="nav-number">1.2.1.</span> <span class="nav-text">Baseline Invariance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Off-Policy-AC"><span class="nav-number">1.2.2.</span> <span class="nav-text">Off-Policy AC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Importance-Sampling"><span class="nav-number">1.2.3.</span> <span class="nav-text">Importance Sampling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Off-policy-policy-gradient-Theorem"><span class="nav-number">1.3.</span> <span class="nav-text">Off-policy policy gradient Theorem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deterministic-Actor-Critic"><span class="nav-number">1.4.</span> <span class="nav-text">Deterministic Actor-Critic</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Actor-Critic-Method"><span class="nav-number">1.</span> <span class="nav-text">Actor-Critic Method</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advantage-Actor-Critic-A2C"><span class="nav-number">1.2.</span> <span class="nav-text">Advantage Actor-Critic (A2C)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Baseline-Invariance"><span class="nav-number">1.2.1.</span> <span class="nav-text">Baseline Invariance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Off-Policy-AC"><span class="nav-number">1.2.2.</span> <span class="nav-text">Off-Policy AC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Importance-Sampling"><span class="nav-number">1.2.3.</span> <span class="nav-text">Importance Sampling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Off-policy-policy-gradient-Theorem"><span class="nav-number">1.3.</span> <span class="nav-text">Off-policy policy gradient Theorem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deterministic-Actor-Critic"><span class="nav-number">1.4.</span> <span class="nav-text">Deterministic Actor-Critic</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -731,19 +836,19 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">58k</span>
+    <span title="Symbols count total">66k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">53 mins.</span>
+    <span title="Reading time total">1:01</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">Total words:  10.7k</span>
+  <span class="post-count">Total words:  12.1k</span>
 </div>
 
 

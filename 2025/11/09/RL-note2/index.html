@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://example.com/2025/11/09/RL-note2/figure3.png">
 <meta property="og:image" content="http://example.com/2025/11/09/RL-note2/figure4.png">
 <meta property="article:published_time" content="2025-11-09T05:00:24.000Z">
-<meta property="article:modified_time" content="2025-11-11T14:07:47.448Z">
+<meta property="article:modified_time" content="2025-11-12T03:51:22.405Z">
 <meta property="article:author" content="Jason Huang">
 <meta property="article:tag" content="Policy Iteration">
 <meta property="article:tag" content="Value Iteration">
@@ -241,7 +241,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-11-11 23:07:47" itemprop="dateModified" datetime="2025-11-11T23:07:47+09:00">2025-11-11</time>
+                <time title="Modified: 2025-11-12 12:51:22" itemprop="dateModified" datetime="2025-11-12T12:51:22+09:00">2025-11-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -280,14 +280,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>4.8k</span>
+              <span>6.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>4 mins.</span>
+              <span>6 mins.</span>
             </span>
             <div class="post-description">This note will explain vlaue interation & policy iteration</div>
 
@@ -343,7 +343,7 @@ $$
         = \sum_{r\in\mathcal{R}} p(r\mid s,a)\, r
         + \gamma \sum_{s'\in\mathcal{S}} p(s'\mid s,a)\, v_k(s')
         $$
-    
+  
       </li>
 </ul>
 </li>
@@ -369,37 +369,53 @@ $$
 </li>
 </ul>
 <h2 id="Policy-Iteration"><a href="#Policy-Iteration" class="headerlink" title="Policy Iteration"></a>Policy Iteration</h2><blockquote>
-<p>Indirectly solving the Bellman Equation. The foundation of <em><strong>Monte Carlo (MC)</strong></em>.</p>
+<p>Indirectly solving the Bellman Equation. It’s the foundation of <em><strong>Monte Carlo (MC)</strong></em>. It has two parts, policy evaluation and <strong>policy improvement</strong>. </p>
 </blockquote>
 <p><strong>Step1</strong>: Policy Evaluation. </p>
 <p>This step will calculate the state value and evaluate the policy. </p>
 <p>$$<br>v_{\pi_k} &#x3D; r_{\pi_k} + \gamma P_{\pi_k}v_{\pi_k}<br>$$</p>
-<p>where the $r_{\pi_k}, v_{\pi_k}$ can be obtained through system models. </p>
+<p>where the $r_{\pi_k}, P_{\pi_k}$ can be obtained through system models, $\pi_k$ is the policy obtained in the last iteration and $v_{\pi_k}$ is the state value to be calculated in this iteration. </p>
 <p><strong>Step2:</strong> Policy Improvement.</p>
-<p>once $v_<br>{\pi_k}$ is calculated at this first step, we can update the policy through (here is updating the model).</p>
-<p>$$<br>\pi_{k+1} &#x3D; arg\max_\pi(r_\pi + \gamma P_\pi v_{\pi_k})<br>$$</p>
-<p>How to obtain $v_{\pi_k}$</p>
-<p>To calculate $v_{\pi_k}$, we need to do an <strong>embedded iteration</strong> to find the it. </p>
+<p>once $v_<br>{\pi_k}$ is calculated at this first step, we can update the policy $\pi_{k+1}$ through.<br>$$<br>\pi_{k+1} &#x3D; arg\max_\pi(r_\pi + \gamma P_\pi v_{\pi_k})<br>$$</p>
+<p><strong>How to obtain</strong> $v_{\pi_k}$ 🤔?</p>
+<p>To calculate $v_{\pi_k}$, we need to do an <strong>embedded iteration</strong> based on <strong>contract mapping theorem</strong>. We can also use $v_{\pi_k}&#x3D;(I-\gamma P_{\pi_k})^{-1}r_{\pi_k}$  and find the inverse of matrix. But it is not recommended. </p>
 <p>$$<br>v_{\pi_k}^{(j+1)} &#x3D; r_{\pi_k} + \gamma P_{\pi_k}v_{\pi_k}^{(j)}, \quad j &#x3D; 0, 1, 2, \cdots<br>$$</p>
 <p>Mathematically, there will be infinite steps to obtain the convergence. However, we can artificially set a threshold for $||v_{\pi_k}^{(j+1)} - v_{\pi_k}^{(j)}||$ or the maximum steps for $j$. </p>
-<p><strong>Why is $\pi_{k+1}$  better than $\pi_k$</strong>?</p>
-<p>$$<br>\because \pi_{k+1} &#x3D; arg\max_\pi(r_\pi + \gamma P_\pi v_{\pi_k})<br>$$</p>
-<p>$$<br>v_{\pi_{k+1}}(s) \geq v_{\pi_k}(s) , \quad \text{for all}\quad s<br>$$</p>
+<p><strong>Why is $\pi_{k+1}$  better than $\pi_k$</strong>?<br>$$<br>\because \pi_{k+1} &#x3D; arg\max_\pi(r_\pi + \gamma P_\pi v_{\pi_k})<br>$$</p>
+<p>$$<br>\therefore v_{\pi_{k+1}}(s) \geq v_{\pi_k}(s) , \quad \text{for all}\quad s<br>$$</p>
+<p> The prove is that since $v_{\pi_{k+1}}$ and $v_{\pi}$ are states values, they satisfy the Bellman Equation.<br>$$<br>v_{\pi_{k+1}} &#x3D; r_{\pi_{k+1}} + \gamma P_{\pi_{k+1}} v_{\pi_{k+1}}<br>$$</p>
+<p>$$<br>v_{\pi_{k}} &#x3D; r_{\pi_{k}} + \gamma P_{\pi_{k}} v_{\pi_{k}}<br>$$</p>
+<p>Because equation (15), we  know that $r_{\pi_{k+1}} + \gamma P_{\pi_{k+1}} v_{\pi_{k}} &gt; r_{\pi_{k}} + \gamma P_{\pi_{k}} v_{\pi_{k}}$. Therefore<br>$$<br>v_{\pi_{k}} - v_{\pi_{k+1}}&#x3D; (r_{\pi_{k}} + \gamma P_{\pi_{k}}  v_{\pi_{k}}) - (r_{\pi_{k+1}} + \gamma P_{\pi_{k+1}} v_{\pi_{k+1}}) \leq (r_{\pi_{k+1}} + \gamma P_{\pi_{k+1}}  v_{\pi_{k}}) - (r_{\pi_{k+1}} + \gamma P_{\pi_{k+1}} v_{\pi_{k+1}}) &#x3D; \gamma P_{\pi_{k+1}}(v_{\pi_k} - v_{\pi_{k+1}})<br>$$<br>Thus, $v_{\pi_{k}} - v_{\pi_{k+1}} \leq \lim_{n\rightarrow \infty} \gamma^n P_{\pi_{k+1}}^n(v_{\pi_{k}} - v_{\pi_{k+1}})&#x3D;0$</p>
 <blockquote>
 <p>Since the policy iteration contains an embedded iterations, its convergence will be faster than value iteration.</p>
 </blockquote>
-<p>Elementwise form and Algorithm</p>
-<p>While $v_{\pi_k}$ has not converged, for the $k$ th iteration,  do</p>
-<p><strong>Policy Evaluation</strong>:</p>
+<p><strong>Algorithm</strong></p>
+<p><strong>Initialization</strong>: The system model, $p(r|s, a)$ and $p(s’|s,a)$ for all $s, a$ is known. Initial guess $\pi_0$</p>
+<p><strong>Goal</strong>: Search for optimal state value and an opitmal policy. </p>
+<p><strong>Loop</strong>: While $v_{\pi_k}$ has not converged, for the $k$ th iteration,  do</p>
+<ul>
+<li><p><strong>Policy Evaluation</strong>:</p>
 <p>Initialization: an arbitrary initial guess $v_{\pi_k}^{(0)}$</p>
 <p>While $v_{\pi_k}^{(j)}$ has not converged, for the $j$ th iteration, do </p>
-<p>For every state $v_{\pi_k}^{(j+1)}(s) &#x3D; \sum_a \pi_k(a|s) [\sum_r p(r|s, a)r + \gamma\sum_{s’}p(s’|s, a)v_{\pi_k}^{(j)}(s’)]$ </p>
-<p><strong>Policy Improvement</strong>:</p>
+<ul>
+<li>For every state:</li>
+<li>$v_{\pi_k}^{(j+1)}(s) &#x3D; \sum_a \pi_k(a|s) [\sum_r p(r|s, a)r + \gamma\sum_{s’}p(s’|s, a)v_{\pi_k}^{(j)}(s’)]$</li>
+</ul>
+</li>
+<li><p><strong>Policy Improvement</strong>:</p>
 <p>For every state $s \in \mathcal{S}$, do:</p>
-<p>For every action $a \in \mathcal A$, do:</p>
-<p>Calculate the action value: $q_{\pi_k}(s, a) &#x3D; \sum_r p(r|s, a)r + \gamma\sum_{s’}p(s’|s, a)v_{\pi_k}(s’)$</p>
-<p>$a_k^*(s) &#x3D; arg\max_a q_{\pi_k} (s, a)$</p>
-<p>$\pi_{k+1}(a|s) &#x3D; 1$  if $a &#x3D; a^*<em>k$ and $\pi</em>{k+1}(a|s)&#x3D;0$ otherwise. </p>
+<ul>
+<li>For every action $a \in \mathcal A$, do:<ul>
+<li>Calculate the action value:</li>
+<li>$q_{\pi_k}(s, a) &#x3D; \sum_r p(r|s, a)r + \gamma\sum_{s’}p(s’|s, a)v_{\pi_k}(s’)$</li>
+</ul>
+</li>
+<li>$a_k^*(s) &#x3D; arg\max_a q_{\pi_k} (s, a)$</li>
+<li>$\pi_{k+1}(a|s) &#x3D; 1$  if $a = a^*_k$ and $\pi_{k+1}(a|s)=0$ otherwise. </li>
+</ul>
+</li>
+</ul>
+<p>​	</p>
 <p>In the numerical experiment, </p>
 <ul>
 <li>we can find that the states that are close to the target area can find the optimal policy <em><strong>faster than those far away</strong></em>.</li>
@@ -774,19 +790,19 @@ $$
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">58k</span>
+    <span title="Symbols count total">66k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">53 mins.</span>
+    <span title="Reading time total">1:01</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">Total words:  10.7k</span>
+  <span class="post-count">Total words:  12.1k</span>
 </div>
 
 
