@@ -30,7 +30,7 @@
 <meta property="og:description" content="This note will introduce TD Algorithm and it&#39;s application in SARSA and Q-Learning.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-11-09T19:34:38.000Z">
-<meta property="article:modified_time" content="2025-11-12T12:51:03.146Z">
+<meta property="article:modified_time" content="2025-11-13T04:44:12.744Z">
 <meta property="article:author" content="Jason Huang">
 <meta property="article:tag" content="Q-Learning">
 <meta property="article:tag" content="SARSA">
@@ -239,7 +239,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-11-12 21:51:03" itemprop="dateModified" datetime="2025-11-12T21:51:03+09:00">2025-11-12</time>
+                <time title="Modified: 2025-11-13 13:44:12" itemprop="dateModified" datetime="2025-11-13T13:44:12+09:00">2025-11-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -319,9 +319,14 @@
 <h3 id="Property-of-TD-Algorithm"><a href="#Property-of-TD-Algorithm" class="headerlink" title="Property of TD Algorithm"></a>Property of TD Algorithm</h3><p>The TD Algorithm is defined as </p>
 <p>$$<br>v_{t+1}(s_t) &#x3D; v_t(s_t) - \alpha_t(s_t)[v_t(s_t) - (r_{t+1} + \gamma v_t(s_{t+1}))]<br>$$</p>
 <p>where $\bar{v}_t$ is the TD target</p>
-<p>$$<br>\bar{v}<em>t &#x3D; r</em>{t+1} + \gamma v_t(s_{t+1})<br>$$</p>
-<p>It is called TD target is because $\bar v_t$ is the target value, the algorithm attempts to drive $v(s_t)$  to. </p>
-<p>$$<br>v_{t+1}(s_t) - \bar v_t &#x3D; [v_t(s_t) - \bar v_t] - \alpha_t(s_t)[v_t(s_t) - \bar v_t]<br>$$</p>
+
+$$
+\bar{v}_t = r_{t+1} + \gamma v_t(s_{t+1})
+$$
+
+
+
+<p>It is called TD target is because $\bar v_t$ is the target value, the algorithm attempts to drive $v(s_t)$  to.<br>$$<br>v_{t+1}(s_t) - \bar v_t &#x3D; [v_t(s_t) - \bar v_t] - \alpha_t(s_t)[v_t(s_t) - \bar v_t]<br>$$</p>
 <p>$$<br>v_{t+1}(s_t) - \bar v_t &#x3D; [1 - \alpha_t(s_t)][v_t(s_t) - \bar v_t]<br>$$</p>
 <p>$$<br>|v_t(s_t) - \bar v_t| \geq |v_{t+1}(s_t) - \bar v_t|<br>$$</p>
 <p>which means that the updated state value is closer to the target value than the old state value. </p>
